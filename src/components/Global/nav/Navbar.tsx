@@ -69,7 +69,7 @@ const Navbar: FC = () => {
                 </nav>
             ) : (
                 // Mobile Navbar Code Here
-                <nav className={` ${bgColor} px-4`}>
+                <nav className={` ${bgColor} ${showModal && 'h-screen'} px-4 z-[100]`}>
                     <div className="mx-auto flex justify-between items-center ">
                         <div className="text-white font-bold text-xl flex items-center">
                             <img className='size-16' src={logo} alt="" />
