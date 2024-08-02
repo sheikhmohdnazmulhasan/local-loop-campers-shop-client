@@ -4,6 +4,7 @@ import PrdctCard from "../components/home/PrdctCard";
 import TitleGenerator from "../utils/TitleGenerator";
 import { NavLink } from "react-router-dom";
 import Categories from "../components/home/Categories";
+import FeaturedPrdctCard from "../components/home/FeaturedPrdctCard";
 
 
 const Home = () => {
@@ -35,6 +36,22 @@ const Home = () => {
 
                 <div className="-mt-24">
                     <Categories />
+                </div>
+            </div>
+
+            {/* Featured products */}
+            <div className="px-4 md:px-8 lg:px-10 mx-auto">
+                <TitleGenerator title="Featured " colorTitle="Products" underTitle="Look Our Featured" />
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+                    <FeaturedPrdctCard />
+                    <FeaturedPrdctCard />
+                    <FeaturedPrdctCard />
+                    <FeaturedPrdctCard />
+                    <FeaturedPrdctCard />
+                    <FeaturedPrdctCard />
+                    <FeaturedPrdctCard />
+                    <FeaturedPrdctCard />
                 </div>
             </div>
         </div>
