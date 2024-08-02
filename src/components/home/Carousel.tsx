@@ -60,15 +60,15 @@ export const Carousel = () => {
 
                             <div className="mt-8 flex flex-wrap gap-4 text-center !justify-start md:justify-center">
 
-                                <button className="block w-full rounded bg-rose-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-rose-700 focus:outline-none focus:ring active:bg-rose-500 sm:w-auto">
-                                    <Link to={'/products'}>Browse Products</Link>
-                                </button>
+                                <Link to={'/products'} className="block w-full rounded bg-rose-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-rose-700 focus:outline-none focus:ring active:bg-rose-500 sm:w-auto">
+                                    Browse Products
+                                </Link>
 
 
 
-                                <a href="#" className="block w-full rounded bg-white px-12 py-3 text-sm font-medium text-rose-600 shadow hover:text-rose-700 focus:outline-none focus:ring active:text-rose-500 sm:w-auto">
+                                <Link to={'/dashboard/products'} className="block w-full rounded bg-white px-12 py-3 text-sm font-medium text-rose-600 shadow hover:text-rose-700 focus:outline-none focus:ring active:text-rose-500 sm:w-auto">
                                     Manage Products
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>
