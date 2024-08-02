@@ -2,6 +2,7 @@ import { useState, useEffect, FC } from 'react';
 import { FaUser, FaHeart, FaShoppingCart, FaBars, FaTimes } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 import logo from '../../../../public/logo.png';
+import Headroom from 'react-headroom';
 
 const navLinks = [
     { title: 'Home', url: '/' },
@@ -47,7 +48,7 @@ const Navbar: FC = () => {
     };
 
     return (
-        <>
+        <Headroom>
             {!isMobile ? (
                 // Laptop Navbar Code Here
                 <nav className={` ${bgColor}`}>
@@ -102,7 +103,7 @@ const Navbar: FC = () => {
                     )}
                 </nav>
             )}
-        </>
+        </Headroom>
     );
 };
 
