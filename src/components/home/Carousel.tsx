@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 
 export const Carousel = () => {
     const [currentSlider, setCurrentSlider] = useState(0);
@@ -28,7 +29,7 @@ export const Carousel = () => {
         <h1 className="text-xl uppercase font-semibold md:text-left text-white sm:text-2xl">
             Guaranteed best product <br /> <span className="text-rose-600 text-2xl uppercase font-bold md:text-left  sm:text-5xl">at lowest price</span>
         </h1>,
-        
+
 
     ]
 
@@ -58,12 +59,15 @@ export const Carousel = () => {
                             </p>
 
                             <div className="mt-8 flex flex-wrap gap-4 text-center !justify-start md:justify-center">
-                                <a href="#" className="block w-full rounded bg-rose-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-rose-700 focus:outline-none focus:ring active:bg-rose-500 sm:w-auto">
-                                    Get Started
-                                </a>
+
+                                <button className="block w-full rounded bg-rose-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-rose-700 focus:outline-none focus:ring active:bg-rose-500 sm:w-auto">
+                                    <Link to={'/products'}>Browse Products</Link>
+                                </button>
+
+
 
                                 <a href="#" className="block w-full rounded bg-white px-12 py-3 text-sm font-medium text-rose-600 shadow hover:text-rose-700 focus:outline-none focus:ring active:text-rose-500 sm:w-auto">
-                                    Learn More
+                                    Manage Products
                                 </a>
                             </div>
                         </div>

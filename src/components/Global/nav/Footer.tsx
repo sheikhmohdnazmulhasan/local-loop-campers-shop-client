@@ -22,7 +22,7 @@ const Footer: FC = () => {
                         <div className="flex mt-24 mb-12 flex-row justify-between items-center">
                             <div className="flex items-center font-bold text-xl">
                                 <img className='size-16' src={logo} alt="" />
-                                <h1>LocalLoop</h1>
+                                <h1>Local<span className='text-rose-600'>Loop</span></h1>
                             </div>
                             <a className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase">About</a>
                             <a className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase">Services</a>

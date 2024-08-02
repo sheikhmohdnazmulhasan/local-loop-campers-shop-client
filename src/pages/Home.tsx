@@ -64,11 +64,11 @@ const Home = () => {
             </div>
 
             <div className="px-4 md:px-8 mt-20 md:mt-32 lg:mt-40 lg:px-10 mx-auto">
-                <TitleGenerator title="Frequently Asked " colorTitle="Questions" underTitle="FAQ"/>
+                <TitleGenerator title="Frequently Asked " colorTitle="Questions" underTitle="FAQ" />
 
-              <div className="-mt-20">
+                <div className="-mt-20">
                     <Faq />
-              </div>
+                </div>
             </div>
 
 

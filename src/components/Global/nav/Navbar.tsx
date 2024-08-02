@@ -55,7 +55,7 @@ const Navbar: FC = () => {
                     <div className="flex justify-between mx-auto items-center px-24">
                         <div className="text-white font-bold text-xl flex items-center">
                             <img className='size-16' src={logo} alt="" />
-                            <h1>LocalLoop</h1>
+                            <h1>Local<span className='text-rose-600'>Loop</span></h1>
                         </div>
                         <ul className="flex gap-8 md:gap-16 items-center justify-center text-center cursor-pointer">
                             {navLinks.map((link, index) => (
