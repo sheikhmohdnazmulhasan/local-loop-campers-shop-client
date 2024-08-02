@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FC } from 'react';
 import { FaUser, FaHeart, FaShoppingCart, FaBars, FaTimes } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 import logo from '../../../../public/logo.png';
@@ -21,7 +21,7 @@ const modalColor = 'bg-gray-900';
 
 
 
-const Navbar = () => {
+const Navbar: FC = () => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 769);
     const [showModal, setShowModal] = useState(false);
 

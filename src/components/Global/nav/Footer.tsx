@@ -1,6 +1,7 @@
+import { FC } from 'react';
 import logo from '../../../../public/logo.png';
 
-const Footer = () => {
+const Footer: FC = () => {
 
     return (
         <footer>
