@@ -12,11 +12,32 @@ export const Carousel = () => {
 
     ];
 
+    const titles = [
+        <h1 className="text-xl uppercase font-semibold md:text-left text-white sm:text-2xl">
+            We have exactly what <br /> <span className="text-rose-600 text-2xl uppercase font-bold md:text-left  sm:text-5xl">you are  looking for!</span>
+        </h1>,
+        <h1 className="text-xl uppercase font-semibold md:text-left text-white sm:text-2xl">
+            Shop as much as you want <br /> <span className="text-rose-600 text-2xl uppercase font-bold md:text-left  sm:text-5xl">free delivery nationwide!</span>
+        </h1>,
+        <h1 className="text-xl uppercase font-semibold md:text-left text-white sm:text-2xl">
+            If you don't like the product <br /> <span className="text-rose-600 text-2xl uppercase font-bold md:text-left  sm:text-5xl">return it within 72 hours</span>
+        </h1>,
+        <h1 className="text-xl uppercase font-semibold md:text-left text-white sm:text-2xl">
+            Cash on delivery facility<br /> <span className="text-rose-600 text-2xl uppercase font-bold md:text-left  sm:text-5xl">across the country</span>
+        </h1>,
+        <h1 className="text-xl uppercase font-semibold md:text-left text-white sm:text-2xl">
+            Guaranteed best product <br /> <span className="text-rose-600 text-2xl uppercase font-bold md:text-left  sm:text-5xl">at lowest price</span>
+        </h1>,
+        
+
+    ]
+
+
     // if you don't want to change the slider automatically then you can just remove the useEffect
     useEffect(() => {
         const intervalId = setInterval(() => setCurrentSlider(currentSlider === sliders.length - 1 ? 0 : currentSlider + 1), 3000);
         return () => clearInterval(intervalId);
-    }, [currentSlider]);
+    }, [currentSlider, sliders.length]);
 
     return (
         <>
@@ -27,10 +48,10 @@ export const Carousel = () => {
                 <div className="drop-shadow-lg text-white text-center w-full">
 
                     <div className="relative mx-auto max-w-screen-xl px-4 py-32 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-8" >
-                        <div className="max-w-xl text-center ltr:sm:text-left rtl:sm:text-right">
-                            <h1 className="text-3xl font-extrabold md:text-left text-white sm:text-5xl">
-                                We have exactly what you are <span className="text-rose-600">looking for!</span>
-                            </h1>
+                        <div className="max-w-3xl text-center ltr:sm:text-left rtl:sm:text-right">
+
+                            {titles[currentSlider]}
+
                             <p className="mt-4 max-w-lg text-white md:text-left sm:text-xl/relaxed">
                                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt illo tenetur fuga ducimus
                                 numquam ea!

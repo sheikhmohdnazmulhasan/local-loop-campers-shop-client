@@ -16,6 +16,7 @@ const iconList = [
     { icon: <FaShoppingCart /> },
 ];
 
+
 const bgColor = 'bg-gray-800';
 const modalColor = 'bg-gray-900';
 
@@ -79,17 +80,17 @@ const Navbar: FC = () => {
                             {iconList.map((item, index) => (
                                 <div key={index} onClick={index === iconList.length - 1 ? handleBarsIconClick : null}>{item.icon}</div>
                             ))}
-                            <FaBars onClick={handleBarsIconClick} className="text-white cursor-pointer" />
+                            {!showModal && <FaBars onClick={handleBarsIconClick} className="text-white cursor-pointer z-10" />}
                         </div>
                     </div>
                     {showModal && (
                         <div className="fixed inset-0 flex justify-center items-center">
                             <div className={`absolute inset-0 ${modalColor}`} />
-                            <FaTimes
-                                className="absolute top-6 right-4 text-white cursor-pointer"
+                            {showModal && <FaTimes
+                                className="absolute  z-20 top-6 right-4 text-white cursor-pointer"
                                 onClick={toggleModal}
                                 style={{ fontSize: '16px' }}
-                            />
+                            />}
                             <div className="relative bg-gray-900 w-full">
                                 <div className="flex flex-col gap-8 items-center justify-center h-full">
                                     {navLinks.map((link) => (
