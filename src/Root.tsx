@@ -8,8 +8,10 @@ const Root: FC = () => {
     return (
         <div>
             <Navbar />
-            <div className="h-screen"><Outlet /></div>
-            <Footer />
+
+            <div className="!h-screen"><Outlet /></div>
+
+            {/* <Footer /> */}
 
             {/* <CookieWrnig /> */}
         </div>
