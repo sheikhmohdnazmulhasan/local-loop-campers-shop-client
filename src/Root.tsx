@@ -1,3 +1,4 @@
+import Footer from "./components/Global/nav/Footer";
 import Navbar from "./components/Global/nav/Navbar";
 
 const Root = () => {
@@ -5,7 +6,9 @@ const Root = () => {
         <div>
             <Navbar />
 
-            <p>helo</p>
+            <div className="h-screen"></div>
+
+            <Footer />
         </div>
     );
 };
