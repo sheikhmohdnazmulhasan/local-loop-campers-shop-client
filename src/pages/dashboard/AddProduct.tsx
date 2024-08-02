@@ -1,11 +1,14 @@
 import axios from "axios";
 import { FormEvent, useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
 
     const [showImagePreview, setShowImagePreview] = useState([]);
     const [files, setFiles] = useState([])
     const [x, setX] = useState(false);
+    const navigate = useNavigate();
 
     const handleFileChange = (event) => {
         const selectedFiles = event.target.files;
@@ -31,6 +34,7 @@ const AddProduct = () => {
 
     async function handleAddProduct(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
+        const toastId = toast.loading('Working...')
 
         const title = (event.currentTarget.elements.namedItem('title') as HTMLInputElement).value.trim();
         const description = (event.currentTarget.elements.namedItem('description') as HTMLInputElement).value.trim();
@@ -40,22 +44,34 @@ const AddProduct = () => {
         const images = []
 
 
-        for (let i = 0; i < files.length; i++) {
-            const image = new FormData();
-            image.append('image', files[i]);
+        try {
 
-            const imgBbResponse = await axios.post(
-                `https://api.imgbb.com/1/upload?key=4b159d954d16c4775776e8c6e880b320`,
-                image
-            );
+            for (let i = 0; i < files.length; i++) {
+                const image = new FormData();
+                image.append('image', files[i]);
 
-            images.push(imgBbResponse.data.data.display_url);
-            console.log(imgBbResponse.data.data.display_url);
+                const imgBbResponse = await axios.post(
+                    `https://api.imgbb.com/1/upload?key=4b159d954d16c4775776e8c6e880b320`,
+                    image
+                );
+
+                images.push(imgBbResponse.data.data.display_url);
+                console.log(imgBbResponse.data.data.display_url);
+            }
+
+            const dataForBackend = { title, description, quantity, category, price, images }
+            const serverResponse = await axios.post(`http://localhost:5000/api/v1/products/new`, dataForBackend);
+
+            if (serverResponse.data.success) {
+                toast.success('Product Added', { id: toastId });
+                handleClearFile();
+                navigate('/dashboard/products')
+
+            }
+
+        } catch (error) {
+            toast.error('Something Wrong!', { id: toastId })
         }
-
-        const dataForBackend = { title, description, quantity, category, price, images }
-        const serverResponse = await axios.post(`http://localhost:5000/api/v1/products/new`, dataForBackend);
-        
 
 
     }
