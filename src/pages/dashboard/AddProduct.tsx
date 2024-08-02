@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import axios from "axios";
+import { FormEvent, useEffect, useState } from "react";
 
 const AddProduct = () => {
 
@@ -10,8 +11,7 @@ const AddProduct = () => {
         const selectedFiles = event.target.files;
 
         if (selectedFiles && selectedFiles.length > 0) {
-            const newFiles = Array.from(selectedFiles);
-            setFiles((prevFiles) => [...prevFiles, ...newFiles]);
+            setFiles(Array.from(selectedFiles));
             setX(true)
         }
     }
@@ -29,40 +29,67 @@ const AddProduct = () => {
         }
     }, [files]);
 
+    async function handleAddProduct(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+
+        const title = (event.currentTarget.elements.namedItem('title') as HTMLInputElement).value.trim();
+        const description = (event.currentTarget.elements.namedItem('description') as HTMLInputElement).value.trim();
+        const quantity = parseFloat((event.currentTarget.elements.namedItem('quantity') as HTMLInputElement).value);
+        const category = (event.currentTarget.elements.namedItem('category') as HTMLInputElement).value.trim();
+        const price = parseFloat((event.currentTarget.elements.namedItem('price') as HTMLInputElement).value);
+        const images = []
+
+
+        for (let i = 0; i < files.length; i++) {
+            const image = new FormData();
+            image.append('image', files[i]);
+
+            const imgBbResponse = await axios.post(
+                `https://api.imgbb.com/1/upload?key=4b159d954d16c4775776e8c6e880b320`,
+                image
+            );
+
+            images.push(imgBbResponse.data.data.display_url);
+            console.log(imgBbResponse.data.data.display_url);
+        }
+
+
+    }
 
 
     return (
         <section className="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md ">
             <h2 className="text-lg font-semibold text-gray-700 capitalize mb-3">Add Product</h2>
 
-            <form>
+            <form onSubmit={handleAddProduct}>
                 <div>
-                    <label className="text-gray-700 " htmlFor="username">Title</label>
-                    <input id="username" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  " />
+                    <label className="text-gray-700 " htmlFor="title">Title</label>
+                    <input id="title" name="title" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md " required />
+
                     <div className="mt-2">
-                        <label className="text-gray-700" htmlFor="passwordConfirmation">Description</label>
-                        <input id="passwordConfirmation" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md " />
+                        <label className="text-gray-700" htmlFor="description">Description</label>
+                        <input id="description" name="description" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md " required />
                     </div>
                 </div>
                 <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-3">
                     <div>
-                        <label className="text-gray-700" htmlFor="password">Category</label>
-                        <select className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  ">
-                            <option value="">ddd</option>
-                            <option value="">ddd</option>
-                            <option value="">ddd</option>
-                            <option value="">ddd</option>
+                        <label className="text-gray-700" htmlFor="category">Category</label>
+                        <select id="category" name="category" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  " required>
+                            <option value="xxx">ddd</option>
+                            <option value="xds">ddd</option>
+                            <option value="sdsd">ddd</option>
+                            <option value="sdsd">ddd</option>
                         </select>
                     </div>
 
                     <div>
                         <label className="text-gray-700" htmlFor="emailAddress">Quantity</label>
-                        <input id="emailAddress" type="number" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  " />
+                        <input id="quantity" name="quantity" type="number" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  " required />
                     </div>
 
                     <div>
                         <label className="text-gray-700" htmlFor="username">Price</label>
-                        <input id="username" type="number" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md " />
+                        <input id="price" name="price" type="number" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md " required />
                     </div>
 
                 </div>
@@ -97,7 +124,7 @@ const AddProduct = () => {
                 </div>
 
                 <div className="flex justify-end mt-6">
-                    <button className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-rose-600 rounded-md hover:bg-rose-700">Save</button>
+                    <button type="submit" className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-rose-600 rounded-md hover:bg-rose-700">Save</button>
                 </div>
             </form>
         </section>
