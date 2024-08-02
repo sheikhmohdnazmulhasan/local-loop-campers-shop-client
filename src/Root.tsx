@@ -1,8 +1,11 @@
+import Navbar from "./components/Global/nav/Navbar";
 
 const Root = () => {
     return (
         <div>
-            hello world
+            <Navbar />
+
+            <p>helo</p>
         </div>
     );
 };
