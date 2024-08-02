@@ -6,12 +6,14 @@ import { NavLink } from "react-router-dom";
 import Categories from "../components/home/Categories";
 import FeaturedPrdctCard from "../components/home/FeaturedPrdctCard";
 import ShuffleHero from "../components/home/ShuffleHero";
+import Footer from "../components/Global/nav/Footer";
+import Faq from "../components/home/Faq";
 
 
 const Home = () => {
 
     return (
-        <div className="pb-96">
+        <div className="">
             <Carousel />
 
             {/* hot products */}
@@ -57,10 +59,21 @@ const Home = () => {
             </div>
 
             {/* unique section */}
-
             <div className="px-4 md:px-8 mt-20 md:mt-32 lg:mt-40 lg:px-10 mx-auto">
                 <ShuffleHero />
             </div>
+
+            <div className="px-4 md:px-8 mt-20 md:mt-32 lg:mt-40 lg:px-10 mx-auto">
+                <TitleGenerator title="Frequently Asked " colorTitle="Questions" underTitle="FAQ"/>
+
+              <div className="-mt-20">
+                    <Faq />
+              </div>
+            </div>
+
+
+
+            <Footer />
         </div>
     );
 };
