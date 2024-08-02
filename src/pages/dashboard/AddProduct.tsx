@@ -53,6 +53,10 @@ const AddProduct = () => {
             console.log(imgBbResponse.data.data.display_url);
         }
 
+        const dataForBackend = { title, description, quantity, category, price, images }
+        const serverResponse = await axios.post(`http://localhost:5000/api/v1/products/new`, dataForBackend);
+        
+
 
     }
 
