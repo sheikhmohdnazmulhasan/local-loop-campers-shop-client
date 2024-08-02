@@ -5,6 +5,7 @@ import TitleGenerator from "../utils/TitleGenerator";
 import { NavLink } from "react-router-dom";
 import Categories from "../components/home/Categories";
 import FeaturedPrdctCard from "../components/home/FeaturedPrdctCard";
+import ShuffleHero from "../components/home/ShuffleHero";
 
 
 const Home = () => {
@@ -53,6 +54,12 @@ const Home = () => {
                     <FeaturedPrdctCard />
                     <FeaturedPrdctCard />
                 </div>
+            </div>
+
+            {/* unique section */}
+
+            <div className="px-4 md:px-8 mt-20 md:mt-32 lg:mt-40 lg:px-10 mx-auto">
+                <ShuffleHero />
             </div>
         </div>
     );
