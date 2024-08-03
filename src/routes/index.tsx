@@ -6,8 +6,9 @@ import Products from "../pages/Products";
 import About from "../pages/About";
 import ErrorElement from "../error/ErrorElement";
 import DashboardRoot from "../pages/dashboard/Root";
-import AddProduct from "../pages/dashboard/AddProduct";
+
 import AllProducts from "../pages/dashboard/AllProducts";
+import AddProduct from "../pages/dashboard/AddProduct";
 
 export const router = createBrowserRouter([
     {

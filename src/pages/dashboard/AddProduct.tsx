@@ -2,6 +2,7 @@ import axios from "axios";
 import { FormEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useCreateProductMutation } from "../../redux/features/products/product.api";
 
 const AddProduct = () => {
 
@@ -9,6 +10,7 @@ const AddProduct = () => {
     const [files, setFiles] = useState([])
     const [x, setX] = useState(false);
     const navigate = useNavigate();
+    const [createProduct, {isError, isLoading}] = useCreateProductMutation()
 
     const handleFileChange = (event) => {
         const selectedFiles = event.target.files;
@@ -60,9 +62,10 @@ const AddProduct = () => {
             }
 
             const dataForBackend = { title, description, quantity, category, price, images }
-            const serverResponse = await axios.post(`http://localhost:5000/api/v1/products/new`, dataForBackend);
+            // const serverResponse = await axios.post(`http://localhost:5000/api/v1/products/new`, dataForBackend);
+            const serverResponse = await createProduct(dataForBackend).unwrap();
 
-            if (serverResponse.data.success) {
+            if (serverResponse.success) {
                 toast.success('Product Added', { id: toastId });
                 handleClearFile();
                 navigate('/dashboard/products')
