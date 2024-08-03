@@ -1,15 +1,18 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useGetProductsQuery } from "../../redux/features/products/product.api";
+import { useGetProductsQuery, useUpdateProductsMutation } from "../../redux/features/products/product.api";
 import { FormEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 const EditProduct = () => {
     const { id } = useParams();
-    const { data, isError, isLoading, isSuccess } = useGetProductsQuery({ id });
+    const { data: oldData, isError: oldError, isLoading: oldIsLoading, isSuccess: oldIsSuccess } = useGetProductsQuery({ id });
     const [showImagePreview, setShowImagePreview] = useState([]);
     const [files, setFiles] = useState([])
     const [x, setX] = useState(true);
     const navigate = useNavigate();
+
+    const [updateProduct, { isError, isSuccess }] = useUpdateProductsMutation();
 
     console.log();
 
@@ -29,17 +32,44 @@ const EditProduct = () => {
 
     async function handleEditProduct(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        // const toastId = toast.loading('Working...')
+        const toastId = toast.loading('Working...')
 
         const title = (event.currentTarget.elements.namedItem('title') as HTMLInputElement).value.trim();
         const description = (event.currentTarget.elements.namedItem('description') as HTMLInputElement).value.trim();
         const quantity = parseFloat((event.currentTarget.elements.namedItem('quantity') as HTMLInputElement).value);
         const category = (event.currentTarget.elements.namedItem('category') as HTMLInputElement).value.trim();
         const price = parseFloat((event.currentTarget.elements.namedItem('price') as HTMLInputElement).value);
-        
-        const images: string[] = files.length > 0 ? [] : data?.data?.images;
 
-        console.log(title, description, quantity, category, price, images);
+        const images: string[] = files.length > 0 ? [] : oldData?.data?.images as string[]
+
+        // console.log(title, description, quantity, category, price, images);
+
+        try {
+
+            for (let i: number = 0; i < files.length; i++) {
+                const image = new FormData();
+                image.append('image', files[i]);
+
+                const imgBbResponse = await axios.post(
+                    `https://api.imgbb.com/1/upload?key=4b159d954d16c4775776e8c6e880b320`,
+                    image
+                );
+
+                images.push(imgBbResponse.data.data.display_url);
+                console.log(imgBbResponse.data.data.display_url);
+            }
+
+            const dataForBackend = { title, description, quantity, category, price, images }
+            const serverResponse = await updateProduct({ data: dataForBackend, id });
+
+            if (serverResponse.data.success) {
+                toast.success('Product Updated', { id: toastId });
+                navigate('/dashboard/products');
+            }
+
+        } catch (error) {
+            toast.error('Something Wrong!', { id: toastId });
+        }
 
     }
 
@@ -53,8 +83,8 @@ const EditProduct = () => {
     }, [files]);
 
 
-    if (isError) return <div className="">Something Wrong</div>;
-    if (isLoading) return <div className="">Loading...</div>;
+    if (oldError) return <div className="">Something Wrong</div>;
+    if (oldIsLoading) return <div className="">Loading...</div>;
 
     return (
         <div>
@@ -64,17 +94,17 @@ const EditProduct = () => {
                 <form onSubmit={handleEditProduct}>
                     <div>
                         <label className="text-gray-700 " htmlFor="title">Title</label>
-                        <input id="title" name="title" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md " required defaultValue={data?.data?.title} />
+                        <input id="title" name="title" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md " required defaultValue={oldData?.data?.title} />
 
                         <div className="mt-2">
                             <label className="text-gray-700" htmlFor="description">Description</label>
-                            <input id="description" name="description" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md " required defaultValue={data?.data?.description} />
+                            <input id="description" name="description" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md " required defaultValue={oldData?.data?.description} />
                         </div>
                     </div>
                     <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-3">
                         <div>
                             <label className="text-gray-700" htmlFor="category">Category</label>
-                            <select id="category" name="category" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  " required defaultValue={data?.data?.category}>
+                            <select id="category" name="category" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  " required defaultValue={oldData?.data?.category}>
                                 <option value="xxx">ddd</option>
                                 <option value="xds">ddd</option>
                                 <option value="sdsd">ddd</option>
@@ -84,12 +114,12 @@ const EditProduct = () => {
 
                         <div>
                             <label className="text-gray-700" htmlFor="emailAddress">Quantity</label>
-                            <input id="quantity" name="quantity" type="number" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  " required defaultValue={data?.data?.quantity} />
+                            <input id="quantity" name="quantity" type="number" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  " required defaultValue={oldData?.data?.quantity} />
                         </div>
 
                         <div>
                             <label className="text-gray-700" htmlFor="username">Price</label>
-                            <input id="price" name="price" type="number" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md " required defaultValue={data?.data?.price} />
+                            <input id="price" name="price" type="number" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md " required defaultValue={oldData?.data?.price} />
                         </div>
 
                     </div>
@@ -100,7 +130,7 @@ const EditProduct = () => {
 
                                 {showImagePreview.length ?
                                     showImagePreview?.map(img => <img className="w-full max-w-[150px] rounded-lg object-cover" src={img} />) :
-                                    data?.data?.images.map(xx => <img className="w-full max-w-[150px] rounded-lg object-cover" src={xx} />)}
+                                    oldData?.data?.images.map(xx => <img className="w-full max-w-[150px] rounded-lg object-cover" src={xx} />)}
 
                                 <div className="flex-1 space-y-1.5 overflow-hidden">
                                     {/* <h5 className="text-xl font-medium tracking-tight truncate">{showName?.name}</h5> */}
