@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Swal from "sweetalert2";
 import { useGetProductsQuery } from "../../redux/features/products/product.api";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import axios from "axios";
+import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal, Key } from "react";
+import { Link } from "react-router-dom";
 
 const AllProducts = () => {
     const { data, isError, isLoading, refetch } = useGetProductsQuery(undefined);
@@ -30,7 +33,7 @@ const AllProducts = () => {
                         text: "Your Product has been deleted.",
                         icon: "success"
                     })
-                    
+
                     refetch()
                 }
             }
@@ -51,7 +54,7 @@ const AllProducts = () => {
 
             {/* body */}
 
-            {data?.data?.map((item, indx) => (
+            {data?.data?.map((item: { images: (string | undefined)[]; title: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; category: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; quantity: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; price: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; _id: string; }, indx: Key | null | undefined) => (
 
                 <div key={indx} className="w-full flex p-3 items-center border-b">
                     <div className="w-[40%] flex items-center gap-2">
@@ -64,7 +67,9 @@ const AllProducts = () => {
                     <div className="w-[20%]">{item?.quantity}</div>
                     <div className="w-[20%]">$ {item?.price}</div>
                     <div className="w-[20%] flex items-center gap-4">
-                        <FaEdit className="text-sky-700 cursor-pointer hover:scale-110 transition-all" />
+                        <Link to={`edit/${item?._id}`}>
+                            <FaEdit className="text-sky-700 cursor-pointer hover:scale-110 transition-all" />
+                        </Link>
                         <FaTrash className="text-rose-700 cursor-pointer hover:scale-110 transition-all" onClick={() => handleDeleteProduct(item._id)} />
                     </div>
                 </div>

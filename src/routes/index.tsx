@@ -9,6 +9,7 @@ import DashboardRoot from "../pages/dashboard/Root";
 
 import AllProducts from "../pages/dashboard/AllProducts";
 import AddProduct from "../pages/dashboard/AddProduct";
+import EditProduct from "../pages/dashboard/EditProduct";
 
 export const router = createBrowserRouter([
     {
@@ -27,7 +28,7 @@ export const router = createBrowserRouter([
             { path: 'new', element: <AddProduct /> },
             { path: 'products', element: <AllProducts /> },
             { index: true, element: <AllProducts /> },
-            { path: 'edit/:id', element: <AllProducts /> },
+            { path: 'products/edit/:id', element: <EditProduct /> },
         ]
 
     }
