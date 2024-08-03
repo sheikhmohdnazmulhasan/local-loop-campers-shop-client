@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetProductsQuery } from "../../redux/features/products/product.api";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const EditProduct = () => {
     const { id } = useParams();
@@ -26,7 +27,19 @@ const EditProduct = () => {
         setShowImagePreview([]);
     };
 
-    async function handleEditProduct(event) {
+    async function handleEditProduct(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        // const toastId = toast.loading('Working...')
+
+        const title = (event.currentTarget.elements.namedItem('title') as HTMLInputElement).value.trim();
+        const description = (event.currentTarget.elements.namedItem('description') as HTMLInputElement).value.trim();
+        const quantity = parseFloat((event.currentTarget.elements.namedItem('quantity') as HTMLInputElement).value);
+        const category = (event.currentTarget.elements.namedItem('category') as HTMLInputElement).value.trim();
+        const price = parseFloat((event.currentTarget.elements.namedItem('price') as HTMLInputElement).value);
+        
+        const images: string[] = files.length > 0 ? [] : data?.data?.images;
+
+        console.log(title, description, quantity, category, price, images);
 
     }
 
@@ -48,7 +61,7 @@ const EditProduct = () => {
             <section className="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md ">
                 <h2 className="text-lg font-semibold text-gray-700 capitalize mb-3">Add Product</h2>
 
-                <form>
+                <form onSubmit={handleEditProduct}>
                     <div>
                         <label className="text-gray-700 " htmlFor="title">Title</label>
                         <input id="title" name="title" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md " required defaultValue={data?.data?.title} />
