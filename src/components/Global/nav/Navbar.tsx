@@ -59,7 +59,7 @@ const Navbar: FC = () => {
                         </div>
                         <ul className="flex gap-8 md:gap-16 items-center justify-center text-center cursor-pointer">
                             {navLinks.map((link, index) => (
-                                <li className="text-white text-sm"><NavLink to={link.url}>{link.title}</NavLink> </li>
+                                <li key={index} className="text-white text-sm"><NavLink to={link.url}>{link.title}</NavLink> </li>
                             ))}
                         </ul>
                         <ul className="flex text-white gap-6 items-center cursor-pointer">

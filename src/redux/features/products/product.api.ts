@@ -22,9 +22,9 @@ const productApi = baseApi.injectEndpoints({
             query: (payload) => ({
                 url: '/products/new',
                 method: 'POST',
-                body: payload
+                body: payload,
             })
-        })
+        }),
     })
 })
 

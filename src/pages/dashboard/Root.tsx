@@ -2,7 +2,6 @@ import { NavLink, Outlet } from 'react-router-dom';
 import logo from '../../../public/logo.png';
 import { FaPlus } from 'react-icons/fa';
 import Navbar from '../../components/Global/nav/Navbar';
-import Footer from '../../components/Global/nav/Footer';
 
 const DashboardRoot = () => {
 
