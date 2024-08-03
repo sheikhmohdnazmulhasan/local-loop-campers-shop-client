@@ -10,6 +10,7 @@ import DashboardRoot from "../pages/dashboard/Root";
 import AllProducts from "../pages/dashboard/AllProducts";
 import AddProduct from "../pages/dashboard/AddProduct";
 import EditProduct from "../pages/dashboard/EditProduct";
+import PrdctDetails from "../pages/PrdctDetails";
 
 export const router = createBrowserRouter([
     {
@@ -19,6 +20,7 @@ export const router = createBrowserRouter([
             { path: '/contact', element: <Contact /> },
             { path: '/products', element: <Products /> },
             { path: '/about', element: <About /> },
+            { path: '/products/details/:id', element: <PrdctDetails /> },
         ]
     },
 

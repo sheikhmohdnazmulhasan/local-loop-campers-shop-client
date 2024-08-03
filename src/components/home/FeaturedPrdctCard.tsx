@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 const FeaturedPrdctCard = ({...item}) => {
 
@@ -12,7 +13,7 @@ const FeaturedPrdctCard = ({...item}) => {
 
                 <div className="flex items-center justify-between px-4 py-2 bg-gray-900">
                     <h1 className="text-lg font-bold text-white">${item?.item?.price}</h1>
-                    <button className="px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-300 transform bg-rose-600 rounded hover:bg-rose-700 ">View Details</button>
+                <Link to={`/products/details/${item?.item?._id}`} className="px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-300 transform bg-rose-600 rounded hover:bg-rose-700 ">View Details</Link>
                 </div>
         </div>
     );

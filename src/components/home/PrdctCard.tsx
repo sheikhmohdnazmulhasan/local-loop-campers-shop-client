@@ -1,13 +1,14 @@
+import { Link } from "react-router-dom";
 
 const PrdctCard = ({ ...item }) => {
 
     return (
 
         <div className="relative flex w-full flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
-            <a className="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl" href="#">
+            <Link to={`/products/details/${item?.item?._id}`} className="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl" >
                 <img className="object-cover" src={item?.item?.images[0]} alt={item?.item?.title} />
                 {/* <span className="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">39% OFF</span> */}
-            </a>
+            </Link>
             <div className="mt-4 px-5 pb-5">
 
                 {/* title */}
