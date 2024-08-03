@@ -1,17 +1,15 @@
 import Swal from "sweetalert2";
 import { useGetProductsQuery } from "../../redux/features/products/product.api";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import axios from "axios";
 
 const AllProducts = () => {
-
-    const { data, isError, isLoading } = useGetProductsQuery(undefined);
+    const { data, isError, isLoading, refetch } = useGetProductsQuery(undefined);
 
     if (isError) return <div className="">Something Wrong!</div>;
     if (isLoading) return <div className="">Loading...</div>;
 
-    async function handleDeleteProduct(_id: string) {
-
-        console.log(_id);
+    function handleDeleteProduct(_id: string) {
 
         Swal.fire({
             title: "Are you sure?",
@@ -21,13 +19,20 @@ const AllProducts = () => {
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, delete it!"
-        }).then((result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
-                Swal.fire({
-                    title: "Deleted!",
-                    text: "Your file has been deleted.",
-                    icon: "success"
-                });
+
+                const res = await axios.delete(`http://localhost:5000/api/v1/products?id=${_id}`);
+
+                if (res.data.success) {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your Product has been deleted.",
+                        icon: "success"
+                    })
+                    
+                    refetch()
+                }
             }
         });
     }
@@ -60,7 +65,7 @@ const AllProducts = () => {
                     <div className="w-[20%]">$ {item?.price}</div>
                     <div className="w-[20%] flex items-center gap-4">
                         <FaEdit className="text-sky-700 cursor-pointer hover:scale-110 transition-all" />
-                        <FaTrash className="text-rose-700 cursor-pointer hover:scale-110 transition-all" onClick={()=> handleDeleteProduct(item._id)}/>
+                        <FaTrash className="text-rose-700 cursor-pointer hover:scale-110 transition-all" onClick={() => handleDeleteProduct(item._id)} />
                     </div>
                 </div>
             ))}
