@@ -14,6 +14,7 @@ export const cartSlice = createSlice({
             const isExist = state.find(item => item.id === action.payload.id);
 
             if (isExist) {
+
                 isExist.quantity += action.payload.quantity;
                 isExist.payable += action.payload.payable;
                 return
@@ -22,12 +23,35 @@ export const cartSlice = createSlice({
             state.push(action.payload);
         },
 
+        updateQuantity: (state, action) => {
+            const targetedItem = state.find(item => item.id === action.payload.id);
+
+            if (targetedItem) {
+                const itemPrice = targetedItem?.payable as number / targetedItem?.quantity as number;
+
+                if (action.payload.operationType === 'decrement') {
+
+                    if (targetedItem.quantity > 1) {
+
+                        targetedItem.quantity -= 1;
+                        targetedItem.payable -= itemPrice;
+                    }
+                }
+
+                if (action.payload.operationType === 'increment') {
+
+                    targetedItem.quantity += 1;
+                    targetedItem.payable += itemPrice;
+                }
+            }
+        },
+
         deleteItem: (state, action) => {
             return state = state.filter(item => item.id !== action.payload.id);
         }
     }
 })
 
-export const { addToCart, deleteItem } = cartSlice.actions
+export const { addToCart, deleteItem, updateQuantity } = cartSlice.actions
 
 export default cartSlice.reducer

@@ -1,11 +1,38 @@
 import { FaMinus } from "react-icons/fa";
 import { useAppDispatch } from "../../redux/hooks";
-import { deleteItem } from "../../redux/features/cart/cartSlice";
+import { deleteItem, updateQuantity } from "../../redux/features/cart/cartSlice";
+import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 const EachPrdct = ({ ...item }) => {
-    const { id, title, img, quantity, payable, } = item.item;
+    const { id, title, img, quantity, payable, stock } = item.item;
     const dispatch = useAppDispatch();
 
+    function handleIncrementQuantity() {
+
+        if (quantity < stock) return dispatch(updateQuantity({ id, operationType: 'increment' }));
+
+        toast.error('Stock Unavailable!')
+
+    }
+
+    function handleDeleteItemFromCart() {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You seem to be looking at pockets :)",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Remove it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(deleteItem({ id }))
+
+                toast.success('Item Removed! You seem to be looking at pockets :)', { duration: 2000 })
+            }
+        });
+    }
 
     return (
         <div className="grid grid-cols-1 lg:grid-cols-2 min-[550px]:gap-6 border-t border-gray-200 py-6">
@@ -24,7 +51,9 @@ const EachPrdct = ({ ...item }) => {
                     $15.00 <span className="text-sm text-gray-300 ml-3 lg:hidden whitespace-nowrap">(Delivery
                         Charge)</span></h6>
                 <div className="flex items-center w-full mx-auto justify-center">
-                    <button
+
+                    {/* decrement */}
+                    <button onClick={() => dispatch(updateQuantity({ id, operationType: 'decrement' }))}
                         className="group rounded-l-full px-6 py-[18px] border border-gray-200 flex items-center justify-center shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-gray-300 hover:bg-gray-50">
                         <svg className="stroke-gray-900 transition-all duration-500 group-hover:stroke-black"
                             xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
@@ -36,10 +65,14 @@ const EachPrdct = ({ ...item }) => {
                                 stroke-linecap="round" />
                         </svg>
                     </button>
+
+                    {/* value */}
                     <input type="text"
                         className="border-y border-gray-200 outline-none text-gray-900 font-semibold text-lg w-full max-w-[118px] min-w-[80px] placeholder:text-gray-900 py-[15px] text-center bg-transparent"
                         placeholder={quantity} />
-                    <button
+
+                    {/* increment */}
+                    <button onClick={handleIncrementQuantity}
                         className="group rounded-r-full px-6 py-[18px] border border-gray-200 flex items-center justify-center shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-gray-300 hover:bg-gray-50">
                         <svg className="stroke-gray-900 transition-all duration-500 group-hover:stroke-black"
                             xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
@@ -56,7 +89,7 @@ const EachPrdct = ({ ...item }) => {
                 <h6
                     className="text-rose-600 font-manrope font-bold text-2xl leading-9 w-full max-w-[176px] text-center">
                     ${payable + 15}</h6>
-                <h6 onClick={() => dispatch(deleteItem({ id }))} className="p-2 cursor-pointer hover:bg-rose-600 hover:text-white transition-all rounded-full border"><FaMinus className="" /></h6>
+                <h6 onClick={handleDeleteItemFromCart} className="p-2 cursor-pointer hover:bg-rose-600 hover:text-white transition-all rounded-full border"><FaMinus className="" /></h6>
             </div>
         </div>
     );

@@ -13,6 +13,7 @@ const PrdctCard = ({ ...item }) => {
             id: item?.item?._id,
             title: item?.item?.title,
             img: item?.item?.images[0],
+            stock: item?.item?.quantity,
             quantity: 1,
             payable: price
         }

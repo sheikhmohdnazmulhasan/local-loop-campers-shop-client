@@ -20,6 +20,7 @@ const PrdctDetails = () => {
             id: item?.data?._id,
             title: item?.data?.title,
             img: item?.data?.images[0],
+            stock: item.data.quantity,
             quantity: selectedQuantity,
             payable: price * selectedQuantity
         }
