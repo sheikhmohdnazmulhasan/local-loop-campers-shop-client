@@ -4,9 +4,10 @@ import { useGetProductsQuery } from "../../redux/features/products/product.api";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import axios from "axios";
 import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal, Key } from "react";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 
 const AllProducts = () => {
+
     const { data, isError, isLoading, refetch } = useGetProductsQuery(undefined);
 
     if (isError) return <div className="">Something Wrong!</div>;

@@ -6,8 +6,8 @@ import Headroom from 'react-headroom';
 
 const navLinks = [
     { title: 'Home', url: '/' },
+    { title: 'Products', url: '/products' },
     { title: 'About', url: '/about' },
-    { title: 'Services', url: '/services' },
     { title: 'Contact', url: '/contact' }
 ];
 
@@ -59,7 +59,7 @@ const Navbar: FC = () => {
                         </div>
                         <ul className="flex gap-8 md:gap-16 items-center justify-center text-center cursor-pointer">
                             {navLinks.map((link, index) => (
-                                <li key={index} className="text-white text-sm"><NavLink to={link.url}>{link.title}</NavLink> </li>
+                                <li key={index} className="text-white text-sm"><NavLink className={({ isActive }) => isActive ? 'text-rose-600' : undefined} to={link.url}>{link.title}</NavLink> </li>
                             ))}
                         </ul>
                         <ul className="flex text-white gap-6 items-center cursor-pointer">
@@ -75,7 +75,7 @@ const Navbar: FC = () => {
                     <div className="mx-auto flex justify-between items-center ">
                         <div className="text-white font-bold text-xl flex items-center">
                             <img className='size-16' src={logo} alt="" />
-                                <h1>Local<span className='text-rose-600'>Loop</span></h1>
+                            <h1>Local<span className='text-rose-600'>Loop</span></h1>
                         </div>
                         <div className="flex justify-end items-center gap-6 text-white cursor-pointer">
                             {iconList.map((item, index) => (
@@ -95,7 +95,7 @@ const Navbar: FC = () => {
                             <div className="relative bg-gray-900 w-full">
                                 <div className="flex flex-col gap-8 items-center justify-center h-full">
                                     {navLinks.map((link) => (
-                                        <NavLink to={link.url} className="text-white font-light text-2xl cursor-pointer">{link.title}</NavLink>
+                                        <NavLink onClick={()=> setShowModal(false)} to={link.url} className={({ isActive }) => isActive ? 'text-rose-600 font-light text-2xl cursor-pointer' : 'text-white font-light text-2xl cursor-pointer'}>{link.title}</NavLink>
                                     ))}
                                 </div>
                             </div>
