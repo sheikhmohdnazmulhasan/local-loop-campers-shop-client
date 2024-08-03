@@ -2,13 +2,29 @@ import { useParams } from "react-router-dom";
 import { useGetProductsQuery } from "../redux/features/products/product.api";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { useState } from "react";
+import { useAppDispatch } from "../redux/hooks";
+import { addToCart } from "../redux/features/cart/cartSlice";
 
 const PrdctDetails = () => {
     const { id } = useParams<{ id: string }>();
     const { data: item, isError, isLoading } = useGetProductsQuery({ id });
-    const rating = Math.floor(Math.random() * 21);
     const [selectedQuantity, setSelectedQuantity] = useState(1);
     const [clickedImg, setClickedImg] = useState(0);
+    const dispatch = useAppDispatch();
+
+    function handleAddToCart() {
+        const price = parseInt(item?.data?.price);
+
+        const payload = {
+            id: item?.data?._id,
+            title: item?.data?.title,
+            img: item?.data?.images[0],
+            quantity: selectedQuantity,
+            payable: price * selectedQuantity
+        }
+
+        dispatch(addToCart(payload));
+    }
 
     if (isLoading) return <div className="">Loading..</div>
     if (isError) return <div className="">Something Wrong</div>
@@ -21,11 +37,6 @@ const PrdctDetails = () => {
 
                         <div className=" rounded-lg shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] relative">
                             <img src={item?.data?.images[clickedImg]} alt="Product" className="w-full rounded object-cover mx-auto" />
-                            {/* <button type="button" className="absolute top-4 right-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20px" fill="#ccc" className="mr-1 hover:fill-[#333]" viewBox="0 0 64 64">
-                                    <path d="M45.5 4A18.53 18.53 0 0 0 32 9.86 18.5 18.5 0 0 0 0 22.5C0 40.92 29.71 59 31 59.71a2 2 0 0 0 2.06 0C34.29 59 64 40.92 64 22.5A18.52 18.52 0 0 0 45.5 4ZM32 55.64C26.83 52.34 4 36.92 4 22.5a14.5 14.5 0 0 1 26.36-8.33 2 2 0 0 0 3.27 0A14.5 14.5 0 0 1 60 22.5c0 14.41-22.83 29.83-28 33.14Z" data-original="#000000"></path>
-                                </svg>
-                            </button> */}
                         </div>
 
                         <div className="mt-2 flex flex-wrap justify-center gap-2 mx-auto">
@@ -70,7 +81,7 @@ const PrdctDetails = () => {
                                 <path
                                     d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
                             </svg>
-                            <h4 className="text-gray-800 text-base">{rating} Reviews</h4>
+                            <h4 className="text-gray-800 text-base">{item?.data?.quantity + 2} Reviews</h4>
                         </div>
 
                         <div className="mt-5">
@@ -83,21 +94,28 @@ const PrdctDetails = () => {
                             <p className="text-gray-400 text-base"> <span className="line-through">${parseInt(item?.data?.price) + 120}</span> <span className="text-sm ml-1">Tax included</span></p>
                         </div>
 
-                        <div className="mt-8">
+                        {item?.data?.quantity && <div className="mt-8">
                             <h3 className="font-semibold text-gray-800">Choose Quantity</h3>
 
                             <div className="flex mt-3 gap-3 flex-wrap">
-                                <button><FaMinus /></button>
+                                {selectedQuantity > 1 && <button onClick={() => selectedQuantity > 1 && setSelectedQuantity(selectedQuantity - 1)}><FaMinus /></button>}
                                 <span className="border px-10 py-1">{selectedQuantity}</span>
-                                <button><FaPlus /></button>
+                                {selectedQuantity !== item.data.quantity && <button onClick={() => selectedQuantity < item?.data?.quantity && setSelectedQuantity(selectedQuantity + 1)}><FaPlus /></button>}
                             </div>
 
-                        </div>
+                        </div>}
 
-                        <div className="flex flex-wrap gap-4 mt-8">
-                            <button type="button" className="min-w-[200px] px-4 py-3 bg-rose-600 hover:bg-rose-700 text-white text-sm font-semibold rounded">Buy now</button>
-                            <button type="button" className="min-w-[200px] px-4 py-2.5 border border-rose-600 bg-transparent hover:bg-gray-50 text-rose-800 text-sm font-semibold rounded">Add to cart</button>
-                        </div>
+
+                        {item?.data?.quantity ? (
+                            <div className="flex flex-wrap gap-4 mt-8">
+                                <button type="button" className="min-w-[200px] px-4 py-3 bg-rose-600 hover:bg-rose-700 text-white text-sm font-semibold rounded">Buy now</button>
+                                <button onClick={handleAddToCart} type="button" className="min-w-[200px] px-4 py-2.5 border border-rose-600 bg-transparent hover:bg-gray-50 text-rose-800 text-sm font-semibold rounded">Add to cart</button>
+
+                            </div>
+                        ) : (
+                            <button type="button" className="w-full mt-20 px-4 py-2.5 border border-rose-600 bg-transparent hover:bg-gray-50 text-rose-800 text-sm font-semibold cursor-not-allowed rounded">Out Of Stock</button>
+                        )}
+
                     </div>
                 </div>
             </div>
