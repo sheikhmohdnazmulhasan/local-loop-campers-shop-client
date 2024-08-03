@@ -3,6 +3,7 @@ import { FaUser, FaHeart, FaShoppingCart, FaBars, FaTimes } from 'react-icons/fa
 import { NavLink } from 'react-router-dom';
 import logo from '../../../../public/logo.png';
 import Headroom from 'react-headroom';
+import { useAppSelector } from '../../../redux/hooks';
 
 const navLinks = [
     { title: 'Home', url: '/' },
@@ -14,7 +15,6 @@ const navLinks = [
 const iconList = [
     { icon: <FaUser /> },
     { icon: <FaHeart /> },
-    { icon: <FaShoppingCart /> },
 ];
 
 
@@ -26,6 +26,7 @@ const modalColor = 'bg-gray-900';
 const Navbar: FC = () => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 769);
     const [showModal, setShowModal] = useState(false);
+    const cart = useAppSelector((state) => state.cart);
 
     useEffect(() => {
         const handleResize = () => {
@@ -66,6 +67,7 @@ const Navbar: FC = () => {
                             {iconList.map((item, index) => (
                                 <div key={index}>{item.icon}</div>
                             ))}
+                            <FaShoppingCart className='-mr-5' /> <sup className='bg-rose-600 p-2 rounded-full text-white'>{cart?.length}</sup>
                         </ul>
                     </div>
                 </nav>
@@ -79,8 +81,9 @@ const Navbar: FC = () => {
                         </div>
                         <div className="flex justify-end items-center gap-6 text-white cursor-pointer">
                             {iconList.map((item, index) => (
-                                <div key={index} onClick={index === iconList.length - 1 ? handleBarsIconClick : null}>{item.icon}</div>
+                                <div key={index} onClick={index === iconList.length - 1 ? handleBarsIconClick : undefined}>{item.icon}</div>
                             ))}
+                            <FaShoppingCart className='-mr-5' /> <sup className='bg-rose-600 p-2 rounded-full text-white'>10</sup>
                             {!showModal && <FaBars onClick={handleBarsIconClick} className="text-white cursor-pointer z-10" />}
                         </div>
                     </div>
@@ -95,7 +98,7 @@ const Navbar: FC = () => {
                             <div className="relative bg-gray-900 w-full">
                                 <div className="flex flex-col gap-8 items-center justify-center h-full">
                                     {navLinks.map((link) => (
-                                        <NavLink onClick={()=> setShowModal(false)} to={link.url} className={({ isActive }) => isActive ? 'text-rose-600 font-light text-2xl cursor-pointer' : 'text-white font-light text-2xl cursor-pointer'}>{link.title}</NavLink>
+                                        <NavLink onClick={() => setShowModal(false)} to={link.url} className={({ isActive }) => isActive ? 'text-rose-600 font-light text-2xl cursor-pointer' : 'text-white font-light text-2xl cursor-pointer'}>{link.title}</NavLink>
                                     ))}
                                 </div>
                             </div>

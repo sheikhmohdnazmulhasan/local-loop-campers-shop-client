@@ -19,7 +19,7 @@ const PrdctCard = ({ ...item }) => {
 
         dispatch(addToCart(payload));
 
-        toast.success('Item Added In Cart')
+        toast.success(`${item?.item?.title} is Added to Your Cart`)
     }
 
     return (

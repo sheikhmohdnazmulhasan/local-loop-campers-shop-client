@@ -4,6 +4,7 @@ import { FaMinus, FaPlus } from "react-icons/fa";
 import { useState } from "react";
 import { useAppDispatch } from "../redux/hooks";
 import { addToCart } from "../redux/features/cart/cartSlice";
+import toast from "react-hot-toast";
 
 const PrdctDetails = () => {
     const { id } = useParams<{ id: string }>();
@@ -24,6 +25,7 @@ const PrdctDetails = () => {
         }
 
         dispatch(addToCart(payload));
+        toast.success(`${item?.data?.title} is Added to Your Cart`)
     }
 
     if (isLoading) return <div className="">Loading..</div>
