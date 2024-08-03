@@ -1,13 +1,36 @@
+import Swal from "sweetalert2";
 import { useGetProductsQuery } from "../../redux/features/products/product.api";
-import logo from '../../../public/logo.png';
 import { FaEdit, FaTrash } from "react-icons/fa";
 
 const AllProducts = () => {
 
     const { data, isError, isLoading } = useGetProductsQuery(undefined);
 
-    if (isError) return <div className="">Something Wrong!</div>
-    if (isLoading) return <div className="">Loading...</div>
+    if (isError) return <div className="">Something Wrong!</div>;
+    if (isLoading) return <div className="">Loading...</div>;
+
+    async function handleDeleteProduct(_id: string) {
+
+        console.log(_id);
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                });
+            }
+        });
+    }
 
     return (
 
@@ -37,7 +60,7 @@ const AllProducts = () => {
                     <div className="w-[20%]">$ {item?.price}</div>
                     <div className="w-[20%] flex items-center gap-4">
                         <FaEdit className="text-sky-700 cursor-pointer hover:scale-110 transition-all" />
-                        <FaTrash className="text-rose-700 cursor-pointer hover:scale-110 transition-all" />
+                        <FaTrash className="text-rose-700 cursor-pointer hover:scale-110 transition-all" onClick={()=> handleDeleteProduct(item._id)}/>
                     </div>
                 </div>
             ))}
