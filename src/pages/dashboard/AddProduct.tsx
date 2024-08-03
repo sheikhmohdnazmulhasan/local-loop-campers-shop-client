@@ -73,7 +73,6 @@ const AddProduct = () => {
             toast.error('Something Wrong!', { id: toastId })
         }
 
-
     }
 
 
