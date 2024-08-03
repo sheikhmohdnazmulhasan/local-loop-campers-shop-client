@@ -11,7 +11,7 @@ const Products = () => {
     const { data, isError, isLoading } = useGetProductsQuery({ category });
 
     if (isLoading) return <div className="">Loading...</div>;
-    if(isError) return <div className="">Something Wrong!</div>;
+    if (isError) return <div className="">Something Wrong!</div>;
 
     return (
         <div className="">
@@ -29,17 +29,11 @@ const Products = () => {
 
                 {/* card */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 ">
-                    <PrdctCard />
-                    <PrdctCard />
-                    <PrdctCard />
-                    <PrdctCard />
-                    <PrdctCard />
-                    <PrdctCard />
-                    <PrdctCard />
-                    <PrdctCard />
-                    <PrdctCard />
-                    <PrdctCard />
-                    <PrdctCard />
+
+                    {data?.data?.slice()?.reverse()?.map((item, indx) => (
+                        <PrdctCard item={item} key={indx} />
+                    ))}
+
                 </div>
 
             </div>

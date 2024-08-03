@@ -8,9 +8,12 @@ import FeaturedPrdctCard from "../components/home/FeaturedPrdctCard";
 import ShuffleHero from "../components/home/ShuffleHero";
 import Footer from "../components/Global/nav/Footer";
 import Faq from "../components/home/Faq";
+import { useGetProductsQuery } from "../redux/features/products/product.api";
 
 
 const Home = () => {
+
+    const { data, isLoading, isError } = useGetProductsQuery(undefined);
 
     return (
         <div className="">
@@ -21,10 +24,11 @@ const Home = () => {
                 <TitleGenerator title={'Hot'} colorTitle={'Products'} underTitle={'Choose Your Best'} />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-                    <PrdctCard />
-                    <PrdctCard />
-                    <PrdctCard />
-                    <PrdctCard />
+
+                    {data?.data?.slice(0, 4).map((item, indx) => (
+                        <PrdctCard item={item} key={indx}/>
+                    ))}
+
                 </div>
 
                 <div className="flex justify-end mt-4">
@@ -47,14 +51,11 @@ const Home = () => {
                 <TitleGenerator title="Featured " colorTitle="Products" underTitle="Look Our Featured" />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-                    <FeaturedPrdctCard />
-                    <FeaturedPrdctCard />
-                    <FeaturedPrdctCard />
-                    <FeaturedPrdctCard />
-                    <FeaturedPrdctCard />
-                    <FeaturedPrdctCard />
-                    <FeaturedPrdctCard />
-                    <FeaturedPrdctCard />
+
+                    {data?.data.slice(4, 12).map((item, index) => (
+                        <FeaturedPrdctCard item={item} key={index}/>
+                    ))}
+
                 </div>
             </div>
 

@@ -11,7 +11,7 @@ type CardType = {
 const cards: CardType[] = [
     {
         url: "https://plus.unsplash.com/premium_photo-1664201889947-ca672c9d4134?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        title: "Mobile",
+        title: "Smartphone",
         id: 1,
     },
     {
@@ -59,8 +59,8 @@ const Categories = () => {
         <section ref={targetRef} className="relative h-[300vh] ">
             <div className="sticky top-0 flex h-screen items-center overflow-hidden">
                 <motion.div style={{ x }} className="flex gap-4">
-                    {cards.map((card) => {
-                        return <Card card={card} key={card.id} />;
+                    {cards.map((card, index) => {
+                        return <Card card={card} key={index} />;
                     })}
                 </motion.div>
             </div>

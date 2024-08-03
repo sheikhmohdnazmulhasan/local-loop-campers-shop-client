@@ -105,10 +105,13 @@ const EditProduct = () => {
                         <div>
                             <label className="text-gray-700" htmlFor="category">Category</label>
                             <select id="category" name="category" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  " required defaultValue={oldData?.data?.category}>
-                                <option value="xxx">ddd</option>
-                                <option value="xds">ddd</option>
-                                <option value="sdsd">ddd</option>
-                                <option value="sdsd">ddd</option>
+                                <option value="smartphone">Smartphone</option>
+                                <option value="laptop">Laptop</option>
+                                <option value="drone">Drone</option>
+                                <option value="camera">Camera</option>
+                                <option value="Headphone">Headphone</option>
+                                <option value="robotic">Robotic</option>
+                                <option value="vr">VR</option>
                             </select>
                         </div>
 
