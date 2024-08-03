@@ -1,6 +1,6 @@
 import { useState, useEffect, FC } from 'react';
 import { FaUser, FaHeart, FaShoppingCart, FaBars, FaTimes } from 'react-icons/fa';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import logo from '../../../../public/logo.png';
 import Headroom from 'react-headroom';
 import { useAppSelector } from '../../../redux/hooks';
@@ -67,7 +67,7 @@ const Navbar: FC = () => {
                             {iconList.map((item, index) => (
                                 <div key={index}>{item.icon}</div>
                             ))}
-                            <FaShoppingCart className='-mr-5' /> <sup className='bg-rose-600 p-2 rounded-full text-white'>{cart?.length}</sup>
+                            <Link to={'/cart'}> <FaShoppingCart className='-mr-5' /></Link> <sup className='bg-rose-600 p-2 rounded-full text-white'>{cart?.length}</sup>
                         </ul>
                     </div>
                 </nav>
@@ -83,7 +83,7 @@ const Navbar: FC = () => {
                             {iconList.map((item, index) => (
                                 <div key={index} onClick={index === iconList.length - 1 ? handleBarsIconClick : undefined}>{item.icon}</div>
                             ))}
-                            <FaShoppingCart className='-mr-5' /> <sup className='bg-rose-600 p-2 rounded-full text-white'>10</sup>
+                                <Link to={'/cart'}> <FaShoppingCart className='-mr-5' /></Link> <sup className='bg-rose-600 p-2 rounded-full text-white'>{cart?.length}</sup>
                             {!showModal && <FaBars onClick={handleBarsIconClick} className="text-white cursor-pointer z-10" />}
                         </div>
                     </div>

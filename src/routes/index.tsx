@@ -11,6 +11,7 @@ import AllProducts from "../pages/dashboard/AllProducts";
 import AddProduct from "../pages/dashboard/AddProduct";
 import EditProduct from "../pages/dashboard/EditProduct";
 import PrdctDetails from "../pages/PrdctDetails";
+import Cart from "../pages/Cart";
 
 export const router = createBrowserRouter([
     {
@@ -20,6 +21,7 @@ export const router = createBrowserRouter([
             { path: '/contact', element: <Contact /> },
             { path: '/products', element: <Products /> },
             { path: '/about', element: <About /> },
+            { path: '/cart', element: <Cart /> },
             { path: '/products/details/:id', element: <PrdctDetails /> },
         ]
     },
