@@ -54,8 +54,7 @@ export const Carousel = () => {
                             {titles[currentSlider]}
 
                             <p className="mt-4 max-w-lg text-white md:text-left sm:text-xl/relaxed">
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt illo tenetur fuga ducimus
-                                numquam ea!
+                                Discover Rich products, Shop conveniently and connect with your community through our trusted platform.
                             </p>
 
                             <div className="mt-8 flex flex-wrap gap-4 text-center !justify-start md:justify-center">

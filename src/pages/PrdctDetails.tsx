@@ -5,13 +5,22 @@ import { useState } from "react";
 import { useAppDispatch } from "../redux/hooks";
 import { addToCart } from "../redux/features/cart/cartSlice";
 import toast from "react-hot-toast";
+import Spinner from "../utils/Spinner";
+import FetchErrorElmt from "../error/FetchErrorElmt";
+import Footer from "../components/Global/nav/Footer";
+import FeaturedPrdctCard from "../components/home/FeaturedPrdctCard";
+import { TProduct } from "../interface";
 
 const PrdctDetails = () => {
     const { id } = useParams<{ id: string }>();
-    const { data: item, isError, isLoading } = useGetProductsQuery({ id });
+    const { data: item, isError: singleError, isLoading: singleLoading } = useGetProductsQuery({ id });
+    const { data, isError, isLoading } = useGetProductsQuery({ category: item?.data?.category });
+    const moreItemExceptThisOne = data?.data?.filter(data => data._id !== item?.data?._id);
+
     const [selectedQuantity, setSelectedQuantity] = useState(1);
     const [clickedImg, setClickedImg] = useState(0);
     const dispatch = useAppDispatch();
+
 
     function handleAddToCart() {
         const price = parseInt(item?.data?.price);
@@ -29,8 +38,9 @@ const PrdctDetails = () => {
         toast.success(`${item?.data?.title} is Added to Your Cart`)
     }
 
-    if (isLoading) return <div className="">Loading..</div>
-    if (isError) return <div className="">Something Wrong</div>
+    if (singleLoading || isLoading) return <Spinner />
+    if (singleError || isError) return <FetchErrorElmt />
+
 
     return (
         <div className="font-sans bg-white">
@@ -111,8 +121,8 @@ const PrdctDetails = () => {
 
                         {item?.data?.quantity ? (
                             <div className="flex flex-wrap gap-4 mt-8">
-                                <button type="button" className="min-w-[200px] px-4 py-3 bg-rose-600 hover:bg-rose-700 text-white text-sm font-semibold rounded">Buy now</button>
-                                <button onClick={handleAddToCart} type="button" className="min-w-[200px] px-4 py-2.5 border border-rose-600 bg-transparent hover:bg-gray-50 text-rose-800 text-sm font-semibold rounded">Add to cart</button>
+                                <button type="button" className="w-full md:max-w-[200px] px-4 py-3 bg-rose-600 hover:bg-rose-700 text-white text-sm font-semibold rounded">Buy now</button>
+                                <button onClick={handleAddToCart} type="button" className="w-full md:max-w-[200px] px-4 py-2.5 border border-rose-600 bg-transparent hover:bg-gray-50 text-rose-800 text-sm font-semibold rounded">Add to cart</button>
 
                             </div>
                         ) : (
@@ -122,6 +132,17 @@ const PrdctDetails = () => {
                     </div>
                 </div>
             </div>
+            {moreItemExceptThisOne.length && <div className=" mx-5 md:mx-10 lg:mx-16 py-20">
+                <h1 className=" text-4xl font-semibold">Browse More {item?.data?.category.charAt(0).toUpperCase() + item?.data?.category.slice(1)}</h1>
+
+                <div className="grid grid-cols-1 mt-10 md:grid-cols-2 lg:grid-cols-4 gap-5">
+                    {moreItemExceptThisOne?.map((item: TProduct, indx: number) => (
+                        <FeaturedPrdctCard item={item} key={indx} />
+                    ))}
+                </div>
+            </div>}
+
+            <Footer />
         </div>
     );
 };

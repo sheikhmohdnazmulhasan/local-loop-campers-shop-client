@@ -10,11 +10,16 @@ import Footer from "../components/Global/nav/Footer";
 import Faq from "../components/home/Faq";
 import { useGetProductsQuery } from "../redux/features/products/product.api";
 import Testimonial from "../components/home/Testimonial";
+import Spinner from "../utils/Spinner";
+import FetchErrorElmt from "../error/FetchErrorElmt";
 
 
 const Home = () => {
 
     const { data, isLoading, isError } = useGetProductsQuery(undefined);
+
+    if (isLoading) return <Spinner />
+    if (isError) return <FetchErrorElmt />
 
     return (
         <div className="">
@@ -65,7 +70,7 @@ const Home = () => {
                 <ShuffleHero />
             </div>
 
-          
+
 
             <div className="px-4 md:px-8 mt-20 md:mt-32 lg:mt-40 lg:px-10 mx-auto">
                 <TitleGenerator title="What People are " colorTitle="Saying." underTitle="Testimonials" />

@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import TitleGenerator from "../../utils/TitleGenerator";
+import { Link } from "react-router-dom";
 
 const ShuffleHero = () => {
     return (
@@ -16,12 +17,11 @@ const ShuffleHero = () => {
                 <TitleGenerator title="Change it" colorTitle="up a bit" underTitle="'"/>
 
                 <p className="text-base md:text-lg text-slate-700 -mt-10 md:-mt-16 lg:-mt-20  ml-3">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam nobis in
-                    error repellat voluptatibus ad.
+                    localLoop has transforming online shopping experience! The interface is user-friendly. variety of products available!
                 </p>
-                <button className="bg-rose-600 ml-3 mt-3 text-white font-medium py-2 px-4 rounded transition-all hover:bg-rose-700 active:scale-95">
-                    Find a class
-                </button>
+                <Link to={'/products'}><button className="bg-rose-600 ml-3 mt-3 text-white font-medium py-2 px-4 rounded transition-all hover:bg-rose-700 active:scale-95">
+                    Shop Now
+                </button></Link>
             </div>
             <ShuffleGrid />
         </section>
