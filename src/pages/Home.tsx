@@ -9,6 +9,7 @@ import ShuffleHero from "../components/home/ShuffleHero";
 import Footer from "../components/Global/nav/Footer";
 import Faq from "../components/home/Faq";
 import { useGetProductsQuery } from "../redux/features/products/product.api";
+import Testimonial from "../components/home/Testimonial";
 
 
 const Home = () => {
@@ -26,7 +27,7 @@ const Home = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
 
                     {data?.data?.slice(0, 4).map((item, indx) => (
-                        <PrdctCard item={item} key={indx}/>
+                        <PrdctCard item={item} key={indx} />
                     ))}
 
                 </div>
@@ -53,7 +54,7 @@ const Home = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
 
                     {data?.data.slice(4, 12).map((item, index) => (
-                        <FeaturedPrdctCard item={item} key={index}/>
+                        <FeaturedPrdctCard item={item} key={index} />
                     ))}
 
                 </div>
@@ -64,14 +65,24 @@ const Home = () => {
                 <ShuffleHero />
             </div>
 
+          
+
             <div className="px-4 md:px-8 mt-20 md:mt-32 lg:mt-40 lg:px-10 mx-auto">
+                <TitleGenerator title="What People are " colorTitle="Saying." underTitle="Testimonials" />
+
+                <div className="md:-mt-32">
+                    <Testimonial />
+                </div>
+            </div>
+
+            {/* faq */}
+            <div className="px-4 md:px-8  lg:px-10 mx-auto">
                 <TitleGenerator title="Frequently Asked " colorTitle="Questions" underTitle="FAQ" />
 
                 <div className="-mt-20">
                     <Faq />
                 </div>
             </div>
-
 
 
             <Footer />
