@@ -1,6 +1,7 @@
 import EachPrdct from "../components/cart/EachPrdct";
 import { useAppSelector } from "../redux/hooks";
 import TitleGenerator from "../utils/TitleGenerator";
+import noItem from '../../public/cartempty.png';
 
 const Cart = () => {
     const cart = useAppSelector((state) => state.cart);
@@ -9,8 +10,13 @@ const Cart = () => {
     const subTotal: number = cart.reduce(((acc, value) => acc + value.payable), 0);
     const total: number = subTotal + deliveryCharge;
 
-
-    console.log(total);
+    if (!cart?.length) return (
+        <div className="h-screen w-full border flex justify-center items-center">
+            <div className="flex flex-col justify-center items-center">
+                <img className="size-[70%]" src={noItem} alt="" />
+            </div>
+        </div>
+    )
 
     return (
         <section className="pb-10 relative md:px-6">

@@ -7,13 +7,14 @@ import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal, Key } from
 import { Link } from "react-router-dom";
 import Spinner from "../../utils/Spinner";
 import FetchErrorElmt from "../../error/FetchErrorElmt";
+import noItem from '../../../public/no-product-8316266-6632286.webp'
 
 const AllProducts = () => {
 
     const { data, isError, isLoading, refetch } = useGetProductsQuery(undefined);
 
     if (isLoading) return <Spinner />;
-    if (isError) return <FetchErrorElmt/>;
+    if (isError) return <FetchErrorElmt />;
 
     function handleDeleteProduct(_id: string) {
 
@@ -43,6 +44,19 @@ const AllProducts = () => {
         });
     }
 
+    if (!data.data.length) return (
+
+        <div className="h-screen w-full  flex justify-center items-center">
+            <div className="flex flex-col justify-center items-center">
+                <img className="size-36" src={noItem} alt="" />
+                <p className="text-xl">No Item Available</p>
+                <div className="flex gap-3 mt-3">
+                    <Link to={'/dashboard/new'}>  <button className="py-1.5 px-3 bg-rose-600 text-white rounded-sm">Add One</button></Link>
+                </div>
+            </div>
+        </div>
+    )
+
     return (
 
         <div className="">
@@ -57,7 +71,7 @@ const AllProducts = () => {
 
             {/* body */}
 
-            {data?.data?.map((item: { images: (string | undefined)[]; title: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; category: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; quantity: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; price: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; _id: string; }, indx: Key | null | undefined) => (
+            {data?.data?.slice().reverse().map((item: { images: (string | undefined)[]; title: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; category: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; quantity: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; price: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; _id: string; }, indx: Key | null | undefined) => (
 
                 <div key={indx} className="w-full flex p-3 items-center border-b">
                     <div className="w-[40%] flex items-center gap-2">
