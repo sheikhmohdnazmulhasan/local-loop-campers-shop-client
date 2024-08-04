@@ -1,12 +1,14 @@
 import { IoWarning } from "react-icons/io5";
 import { useAppSelector } from "../redux/hooks";
-import { useState } from "react";
+import { FC, useState } from "react";
+import { useForm } from "react-hook-form";
+import { TCheckoutForm } from "../interface";
 
-const Checkout = () => {
+const Checkout: FC = () => {
+    const { register, handleSubmit } = useForm<TCheckoutForm>();
+
     const [user, setUser] = useState('');
-
     const cart = useAppSelector((state) => state.cart);
-
     // calculation
     const subTotal: number = cart.reduce(((acc, value) => acc + value.payable), 0);
     const deliveryCharge: number = 15 * cart.length;
@@ -14,10 +16,24 @@ const Checkout = () => {
     const total: number = subTotal + deliveryCharge + vat;
 
 
+    // checkout
+
+    async function handleSendCheckout(data: TCheckoutForm) {
+
+        const dataForBackend = {
+            user: {
+                ...data, name: user,
+            },
+            orders: cart
+        }
+
+        console.log(dataForBackend);
+
+    }
 
     return (
         <section className="bg-white py-8 antialiased md:px-10">
-            <form className="mx-auto max-w-screen-xl px-4 2xl:px-0">
+            <form onSubmit={handleSubmit(handleSendCheckout)} className="mx-auto max-w-screen-xl px-4 2xl:px-0">
                 <ol className="items-center flex w-full max-w-2xl text-center text-sm font-medium text-gray-500">
                     <li className="after:border-1 flex items-center text-primary-700 after:mx-6 after:hidden after:h-1 after:w-full after:border-b after:border-gray-200 sm:after:inline-block sm:after:content-[''] md:w-full xl:after:mx-10">
                         <span className="flex items-center after:mx-2 text-red-600 after:content-['/']  sm:after:hidden">
@@ -58,29 +74,25 @@ const Checkout = () => {
                                 <h2 className="text-xl font-semibold text-gray-900">Delivery Details</h2>
                             )}
 
-
-
-
-
                             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                                 <div>
-                                    <label htmlFor="your_name" className="mb-2 block text-sm font-medium text-gray-900 "> Your name </label>
-                                    <input onBlur={(e) => setUser(e.target.value)} type="text" id="your_name" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" placeholder="Sheikh" required />
+                                    <label htmlFor="your_name" className="mb-2 block text-sm font-medium text-gray-900 "> Name </label>
+                                    <input onBlur={(e) => setUser(e.target.value)} type="text" id="name" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" placeholder="Sheikh" />
                                 </div>
 
                                 <div>
-                                    <label htmlFor="your_email" className="mb-2 block text-sm font-medium text-gray-900 "> Your email* </label>
-                                    <input type="email" id="your_email" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" placeholder="name@example.com" required />
+                                    <label htmlFor="your_email" className="mb-2 block text-sm font-medium text-gray-900 "> Email* </label>
+                                    <input type="email" id="email" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" placeholder="name@example.com" required {...register('email')} />
                                 </div>
 
                                 <div>
                                     <label htmlFor="country" className="mb-2 block text-sm font-medium text-gray-900 "> Country* </label>
-                                    <input type="email" id="country" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" placeholder="Bangladesh" required />
+                                    <input type="text" id="country" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" placeholder="Bangladesh" required {...register('country')} />
                                 </div>
 
                                 <div>
                                     <label htmlFor="city" className="mb-2 block text-sm font-medium text-gray-900 "> City* </label>
-                                    <input type="email" id="city" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" placeholder="Rangpur" required />
+                                    <input type="text" id="city" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" placeholder="Rangpur" required {...register('city')} />
                                 </div>
 
                                 <div>
@@ -96,14 +108,14 @@ const Checkout = () => {
 
                                         <div className="relative w-full">
 
-                                            <input type="text" id="phone" className="z-20 block w-full rounded-e-lg border border-s-0 border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" placeholder="177-0000000" required />
+                                            <input type="number" id="phone" className="z-20 block w-full rounded-e-lg border border-s-0 border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" placeholder="177-0000000" required {...register('phone')} />
                                         </div>
                                     </div>
                                 </div>
 
                                 <div>
                                     <label htmlFor="post_code" className="mb-2 block text-sm font-medium text-gray-900"> Postal Code </label>
-                                    <input type="text" id="post_code" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" placeholder="5660" required />
+                                    <input type="text" id="post_code" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" placeholder="5660" required {...register('post_code')} />
                                 </div>
 
                             </div>

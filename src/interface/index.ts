@@ -31,3 +31,21 @@ export interface TCardProps {
         _id: string;
     }
 }
+
+// checkout form
+export interface TCheckoutForm {
+    city: string;
+    country: string;
+    email: string;
+    phone: string;
+    post_code: string;
+    name?: string
+}
+
+
+// checkout data
+
+export interface TUserOrders {
+    user: TCheckoutForm;
+    orders: TCart[];
+}
