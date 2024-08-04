@@ -12,6 +12,7 @@ import { useGetProductsQuery } from "../redux/features/products/product.api";
 import Testimonial from "../components/home/Testimonial";
 import Spinner from "../utils/Spinner";
 import FetchErrorElmt from "../error/FetchErrorElmt";
+import { TProduct } from "../interface";
 
 
 const Home = () => {
@@ -31,7 +32,7 @@ const Home = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
 
-                    {data?.data?.slice(0, 4).map((item, indx) => (
+                    {data?.data?.slice(0, 4).map((item: TProduct, indx: number) => (
                         <PrdctCard item={item} key={indx} />
                     ))}
 
@@ -58,7 +59,7 @@ const Home = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
 
-                    {data?.data.slice(4, 12).map((item, index) => (
+                    {data?.data.slice(4, 12).map((item: TProduct, index: number) => (
                         <FeaturedPrdctCard item={item} key={index} />
                     ))}
 

@@ -5,6 +5,7 @@ import { useGetProductsQuery } from "../redux/features/products/product.api";
 import noItem from '../../public/no-product-8316266-6632286.webp';
 import Spinner from "../utils/Spinner";
 import FetchErrorElmt from "../error/FetchErrorElmt";
+import { TProduct } from "../interface";
 
 const Products = () => {
     const location = useLocation();
@@ -57,7 +58,7 @@ const Products = () => {
                 {/* card */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 ">
 
-                    {data?.data?.slice()?.reverse()?.map((item, indx) => (
+                    {data?.data?.slice()?.reverse()?.map((item: TProduct, indx: number) => (
                         <PrdctCard item={item} key={indx} />
                     ))}
 

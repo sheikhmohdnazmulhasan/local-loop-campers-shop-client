@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link} from "react-router-dom";
 
 export const Carousel = () => {
     const [currentSlider, setCurrentSlider] = useState(0);
