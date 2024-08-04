@@ -3,6 +3,8 @@ import Footer from "../components/Global/nav/Footer";
 import PrdctCard from "../components/home/PrdctCard";
 import { useGetProductsQuery } from "../redux/features/products/product.api";
 import noItem from '../../public/no-product-8316266-6632286.webp';
+import Spinner from "../utils/Spinner";
+import FetchErrorElmt from "../error/FetchErrorElmt";
 
 const Products = () => {
     const location = useLocation();
@@ -10,8 +12,8 @@ const Products = () => {
     const category = searchParams.get('category');
     const { data, isError, isLoading } = useGetProductsQuery({ category });
 
-    if (isLoading) return <div className="">Loading...</div>;
-    if (isError) return <div className="">Something Wrong!</div>;
+    if (isLoading) return <Spinner />;
+    if (isError) return <FetchErrorElmt />;
 
     if (!data.data.length && category) return (
         <div className="h-screen w-full border flex justify-center items-center">

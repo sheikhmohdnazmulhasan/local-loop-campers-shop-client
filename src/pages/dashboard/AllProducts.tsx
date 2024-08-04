@@ -4,14 +4,16 @@ import { useGetProductsQuery } from "../../redux/features/products/product.api";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import axios from "axios";
 import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal, Key } from "react";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import Spinner from "../../utils/Spinner";
+import FetchErrorElmt from "../../error/FetchErrorElmt";
 
 const AllProducts = () => {
 
     const { data, isError, isLoading, refetch } = useGetProductsQuery(undefined);
 
-    if (isError) return <div className="">Something Wrong!</div>;
-    if (isLoading) return <div className="">Loading...</div>;
+    if (isLoading) return <Spinner />;
+    if (isError) return <FetchErrorElmt/>;
 
     function handleDeleteProduct(_id: string) {
 

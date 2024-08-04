@@ -15,7 +15,7 @@ const PrdctDetails = () => {
     const { id } = useParams<{ id: string }>();
     const { data: item, isError: singleError, isLoading: singleLoading } = useGetProductsQuery({ id });
     const { data, isError, isLoading } = useGetProductsQuery({ category: item?.data?.category });
-    const moreItemExceptThisOne = data?.data?.filter(data => data._id !== item?.data?._id);
+    const moreItemExceptThisOne = data?.data?.filter((data: { _id: string; }) => data._id !== item?.data?._id);
 
     const [selectedQuantity, setSelectedQuantity] = useState(1);
     const [clickedImg, setClickedImg] = useState(0);
