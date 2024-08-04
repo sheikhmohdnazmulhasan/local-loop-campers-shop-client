@@ -12,6 +12,7 @@ import AddProduct from "../pages/dashboard/AddProduct";
 import EditProduct from "../pages/dashboard/EditProduct";
 import PrdctDetails from "../pages/PrdctDetails";
 import Cart from "../pages/Cart";
+import Checkout from "../pages/Checkout";
 
 export const router = createBrowserRouter([
     {
@@ -22,6 +23,7 @@ export const router = createBrowserRouter([
             { path: '/products', element: <Products /> },
             { path: '/about', element: <About /> },
             { path: '/cart', element: <Cart /> },
+            { path: '/cart/checkout', element: < Checkout /> },
             { path: '/products/details/:id', element: <PrdctDetails /> },
         ]
     },
