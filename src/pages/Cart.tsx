@@ -5,11 +5,18 @@ import TitleGenerator from "../utils/TitleGenerator";
 const Cart = () => {
     const cart = useAppSelector((state) => state.cart);
 
+    const deliveryCharge: number = 15 * cart.length;
+    const subTotal: number = cart.reduce(((acc, value) => acc + value.payable), 0);
+    const total: number = subTotal + deliveryCharge;
+
+
+    console.log(total);
+
     return (
         <section className="pb-10 relative md:px-6">
             <div className="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">
 
-                <TitleGenerator title="Shopping" colorTitle="Cart" underTitle="Check Your Bag"/>
+                <TitleGenerator title="Shopping" colorTitle="Cart" underTitle="Check Your Bag" />
 
                 {/* <h2 className="title font-manrope font-bold text-4xl leading-10 mb-8 text-center text-black">Your Cart
                 </h2> */}
@@ -31,15 +38,15 @@ const Cart = () => {
                 <div className="bg-gray-50 rounded-xl p-6 w-full mb-8 max-lg:max-w-xl max-lg:mx-auto">
                     <div className="flex items-center justify-between w-full mb-6">
                         <p className="font-normal text-xl leading-8 text-gray-400">Sub Total</p>
-                        <h6 className="font-semibold text-xl leading-8 text-gray-900">$360.00</h6>
+                        <h6 className="font-semibold text-xl leading-8 text-gray-900">${subTotal}</h6>
                     </div>
                     <div className="flex items-center justify-between w-full pb-6 border-b border-gray-200">
                         <p className="font-normal text-xl leading-8 text-gray-400">Delivery Charge</p>
-                        <h6 className="font-semibold text-xl leading-8 text-gray-900">$45.00</h6>
+                        <h6 className="font-semibold text-xl leading-8 text-gray-900">${deliveryCharge}</h6>
                     </div>
                     <div className="flex items-center justify-between w-full py-6">
                         <p className="font-manrope font-medium text-2xl leading-9 text-gray-900">Total</p>
-                        <h6 className="font-manrope font-medium text-2xl leading-9 text-rose-600">$405.00</h6>
+                        <h6 className="font-manrope font-medium text-2xl leading-9 text-rose-600">${total}</h6>
                     </div>
                 </div>
                 <div className="flex items-center flex-col sm:flex-row justify-center gap-3 mt-8">
