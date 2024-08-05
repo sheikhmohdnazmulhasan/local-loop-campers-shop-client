@@ -84,9 +84,11 @@ export interface OrderDocument {
     orders: Order[];
     others: Others;
     __v: number;
+    createdAt: number;
+    updatedAt: number
 }
 
-export  interface EachOrderProps {
+export interface EachOrderProps {
     item: OrderDocument;
     setClickedData: (data: OrderDocument) => void;
 }
