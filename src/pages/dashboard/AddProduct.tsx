@@ -10,7 +10,7 @@ const AddProduct = () => {
     const [files, setFiles] = useState([])
     const [x, setX] = useState(false);
     const navigate = useNavigate();
-    const [createProduct, {isError, isLoading}] = useCreateProductMutation()
+    const [createProduct] = useCreateProductMutation()
 
     const handleFileChange = (event) => {
         const selectedFiles = event.target.files;

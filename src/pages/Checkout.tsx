@@ -1,11 +1,18 @@
 import { IoWarning } from "react-icons/io5";
-import { useAppSelector } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { TCheckoutForm } from "../interface";
+import { useCreateOrderMutation } from "../redux/features/orders/orders.api";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import { clearCart } from "../redux/features/cart/cartSlice";
 
 const Checkout: FC = () => {
     const { register, handleSubmit } = useForm<TCheckoutForm>();
+    const [createOrder] = useCreateOrderMutation()
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
     const [user, setUser] = useState('');
     const cart = useAppSelector((state) => state.cart);
@@ -20,14 +27,38 @@ const Checkout: FC = () => {
 
     async function handleSendCheckout(data: TCheckoutForm) {
 
-        const dataForBackend = {
-            user: {
-                ...data, name: user,
-            },
-            orders: cart
-        }
+        Swal.fire({
+            title: "Everything is Alright?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Confirm"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const dataForBackend = {
+                    user: {
+                        ...data, name: user,
+                    },
+                    orders: cart
+                }
 
-        console.log(dataForBackend);
+                // actual req
+                const res = await createOrder(dataForBackend).unwrap();
+
+                if (res.success) {
+                    Swal.fire({
+                        title: "Order Successfully Placed!",
+                        text: `Please keep $${total} ready. We are coming to empty your pockets very soon.
+                        Track your order: ${res.data[0].others.track}`,
+                        icon: "success"
+                    });
+                    dispatch(clearCart());
+                    navigate('/');
+                }
+            }
+        });
 
     }
 

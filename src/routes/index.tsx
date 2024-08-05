@@ -13,6 +13,7 @@ import EditProduct from "../pages/dashboard/EditProduct";
 import PrdctDetails from "../pages/PrdctDetails";
 import Cart from "../pages/Cart";
 import Checkout from "../pages/Checkout";
+import Orders from "../pages/dashboard/Orders";
 
 export const router = createBrowserRouter([
     {
@@ -31,9 +32,10 @@ export const router = createBrowserRouter([
     {
         path: '/dashboard', element: <DashboardRoot />,
         children: [
+            { index: true, element: <AllProducts /> },
             { path: 'new', element: <AddProduct /> },
             { path: 'products', element: <AllProducts /> },
-            { index: true, element: <AllProducts /> },
+            { path: 'orders', element: <Orders /> },
             { path: 'products/edit/:id', element: <EditProduct /> },
         ]
 

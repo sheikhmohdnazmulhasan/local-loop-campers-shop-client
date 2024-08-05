@@ -48,10 +48,15 @@ export const cartSlice = createSlice({
 
         deleteItem: (state, action) => {
             return state = state.filter(item => item.id !== action.payload.id);
+        },
+
+        clearCart: (state) => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            return state = []
         }
     }
 })
 
-export const { addToCart, deleteItem, updateQuantity } = cartSlice.actions
+export const { addToCart, deleteItem, updateQuantity, clearCart } = cartSlice.actions
 
 export default cartSlice.reducer
