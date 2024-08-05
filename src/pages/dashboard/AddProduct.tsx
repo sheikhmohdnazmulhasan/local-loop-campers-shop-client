@@ -6,8 +6,8 @@ import { useCreateProductMutation } from "../../redux/features/products/product.
 
 const AddProduct = () => {
 
-    const [showImagePreview, setShowImagePreview] = useState([]);
-    const [files, setFiles] = useState([])
+    const [files, setFiles] = useState<File[]>([])
+    const [showImagePreview, setShowImagePreview] = useState<string[]>([]);
     const [x, setX] = useState(false);
     const navigate = useNavigate();
     const [createProduct] = useCreateProductMutation()
@@ -33,6 +33,7 @@ const AddProduct = () => {
             const previewUrl = files.map((file) => URL.createObjectURL(file));
             setShowImagePreview(previewUrl);
         }
+        
     }, [files]);
 
     async function handleAddProduct(event: FormEvent<HTMLFormElement>) {

@@ -51,8 +51,7 @@ export const cartSlice = createSlice({
         },
 
         clearCart: (state) => {
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            return state = []
+            state.length = 0
         }
     }
 })

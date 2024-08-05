@@ -7,8 +7,8 @@ import axios from "axios";
 const EditProduct = () => {
     const { id } = useParams();
     const { data: oldData, isError: oldError, isLoading: oldIsLoading } = useGetProductsQuery({ id });
-    const [showImagePreview, setShowImagePreview] = useState([]);
-    const [files, setFiles] = useState([])
+    const [showImagePreview, setShowImagePreview] = useState<string[]>([]);
+    const [files, setFiles] = useState<File[]>([])
     const [x, setX] = useState(true);
     const navigate = useNavigate();
 
@@ -132,7 +132,7 @@ const EditProduct = () => {
 
                                 {showImagePreview.length ?
                                     showImagePreview?.map(img => <img className="w-full max-w-[150px] rounded-lg object-cover" src={img} />) :
-                                    oldData?.data?.images.map(xx => <img className="w-full max-w-[150px] rounded-lg object-cover" src={xx} />)}
+                                    oldData?.data?.images.map((img: string) => <img className="w-full max-w-[150px] rounded-lg object-cover" src={img} />)}
 
                                 <div className="flex-1 space-y-1.5 overflow-hidden">
                                     {/* <h5 className="text-xl font-medium tracking-tight truncate">{showName?.name}</h5> */}
