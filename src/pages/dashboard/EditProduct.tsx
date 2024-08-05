@@ -6,17 +6,16 @@ import axios from "axios";
 
 const EditProduct = () => {
     const { id } = useParams();
-    const { data: oldData, isError: oldError, isLoading: oldIsLoading, isSuccess: oldIsSuccess } = useGetProductsQuery({ id });
+    const { data: oldData, isError: oldError, isLoading: oldIsLoading } = useGetProductsQuery({ id });
     const [showImagePreview, setShowImagePreview] = useState([]);
     const [files, setFiles] = useState([])
     const [x, setX] = useState(true);
     const navigate = useNavigate();
 
-    const [updateProduct, { isError, isSuccess }] = useUpdateProductsMutation();
+    const [updateProduct] = useUpdateProductsMutation();
 
-    console.log();
-
-    const handleFileChange = (event) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const handleFileChange = (event: { target: { files: any; }; }) => {
         const selectedFiles = event.target.files;
 
         if (selectedFiles && selectedFiles.length > 0) {

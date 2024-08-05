@@ -10,6 +10,7 @@ import FetchErrorElmt from "../error/FetchErrorElmt";
 import Footer from "../components/Global/nav/Footer";
 import FeaturedPrdctCard from "../components/home/FeaturedPrdctCard";
 import { TProduct } from "../interface";
+import ReactImageMagnify from 'react-image-magnify';
 
 const PrdctDetails = () => {
     const { id } = useParams<{ id: string }>();
@@ -21,7 +22,6 @@ const PrdctDetails = () => {
     const [clickedImg, setClickedImg] = useState(0);
     const dispatch = useAppDispatch();
 
-
     function handleAddToCart() {
         const price = parseInt(item?.data?.price);
 
@@ -32,34 +32,49 @@ const PrdctDetails = () => {
             stock: item.data.quantity,
             quantity: selectedQuantity,
             payable: price * selectedQuantity
-        }
+        };
 
         dispatch(addToCart(payload));
-        toast.success(`${item?.data?.title} is Added to Your Cart`)
+        toast.success(`${item?.data?.title} is Added to Your Cart`);
     }
 
-    if (singleLoading || isLoading) return <Spinner />
-    if (singleError || isError) return <FetchErrorElmt />
-
+    if (singleLoading || isLoading) return <Spinner />;
+    if (singleError || isError) return <FetchErrorElmt />;
 
     return (
         <div className="font-sans bg-white">
             <div className="p-4 lg:max-w-7xl max-w-4xl mx-auto">
                 <div className="grid items-start grid-cols-1 lg:grid-cols-5 gap-12 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] p-6 rounded-lg">
                     <div className="lg:col-span-3 w-full lg:sticky top-0 text-center">
-
-                        <div className=" rounded-lg shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] relative">
-                            <img src={item?.data?.images[clickedImg]} alt="Product" className="w-full rounded object-cover mx-auto" />
+                        <div className="rounded-lg shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] relative">
+                            <ReactImageMagnify
+                                {...{
+                                    smallImage: {
+                                        alt: 'Product',
+                                        isFluidWidth: true,
+                                        src: item?.data?.images[clickedImg],
+                                    },
+                                    largeImage: {
+                                        src: item?.data?.images[clickedImg],
+                                        width: 1200,
+                                        height: 1800,
+                                    },
+                                    enlargedImageContainerStyle: { background: '#fff', zIndex: 9 },
+                                    enlargedImageStyle: { objectFit: 'cover' },
+                                }}
+                            />
                         </div>
 
                         <div className="mt-2 flex flex-wrap justify-center gap-2 mx-auto">
-
                             {item?.data?.images.map((img: string, indx: number) => (
-                                <div onClick={() => setClickedImg(indx as number)} key={indx} className="w-24 h-24 flex items-center justify-center rounded-lg cursor-pointer">
+                                <div
+                                    onClick={() => setClickedImg(indx as number)}
+                                    key={indx}
+                                    className="w-24 h-24 flex items-center justify-center rounded-lg cursor-pointer"
+                                >
                                     <img src={img} alt="Product2" className="w-full" />
                                 </div>
                             ))}
-
                         </div>
                     </div>
 
@@ -118,29 +133,28 @@ const PrdctDetails = () => {
 
                         </div>}
 
-
                         {item?.data?.quantity ? (
                             <div className="flex flex-wrap gap-4 mt-8">
-                                <button type="button" className="w-full md:max-w-[200px] px-4 py-3 bg-rose-600 hover:bg-rose-700 text-white text-sm font-semibold rounded">Buy now</button>
-                                <button onClick={handleAddToCart} type="button" className="w-full md:max-w-[200px] px-4 py-2.5 border border-rose-600 bg-transparent hover:bg-gray-50 text-rose-800 text-sm font-semibold rounded">Add to cart</button>
-
+                                
+                                <button onClick={handleAddToCart} type="button" className="w-full  px-4 py-2.5 border bg-rose-600 hover:bg-rose-700 text-white text-sm font-semibold rounded">Add to cart</button>
                             </div>
                         ) : (
                             <button type="button" className="w-full mt-20 px-4 py-2.5 border border-rose-600 bg-transparent hover:bg-gray-50 text-rose-800 text-sm font-semibold cursor-not-allowed rounded">Out Of Stock</button>
                         )}
-
                     </div>
                 </div>
             </div>
-            {moreItemExceptThisOne.length && <div className=" mx-5 md:mx-10 lg:mx-16 py-20">
-                <h1 className=" text-4xl font-semibold">Browse More {item?.data?.category.charAt(0).toUpperCase() + item?.data?.category.slice(1)}</h1>
 
-                <div className="grid grid-cols-1 mt-10 md:grid-cols-2 lg:grid-cols-4 gap-5">
-                    {moreItemExceptThisOne?.map((item: TProduct, indx: number) => (
-                        <FeaturedPrdctCard item={item} key={indx} />
-                    ))}
+            {moreItemExceptThisOne.length && (
+                <div className="mx-5 md:mx-10 lg:mx-16 py-20">
+                    <h1 className="text-4xl font-semibold">Browse More {item?.data?.category.charAt(0).toUpperCase() + item?.data?.category.slice(1)}</h1>
+                    <div className="grid grid-cols-1 mt-10 md:grid-cols-2 lg:grid-cols-4 gap-5">
+                        {moreItemExceptThisOne?.map((item: TProduct, indx: number) => (
+                            <FeaturedPrdctCard item={item} key={indx} />
+                        ))}
+                    </div>
                 </div>
-            </div>}
+            )}
 
             <Footer />
         </div>

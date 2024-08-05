@@ -1,5 +1,5 @@
 import { useState, useEffect, FC } from 'react';
-import { FaUser, FaHeart, FaShoppingCart, FaBars, FaTimes } from 'react-icons/fa';
+import { FaUser, FaShoppingCart, FaBars, FaTimes } from 'react-icons/fa';
 import { Link, NavLink } from 'react-router-dom';
 import logo from '../../../../public/logo.png';
 import Headroom from 'react-headroom';
@@ -13,8 +13,8 @@ const navLinks = [
 ];
 
 const iconList = [
-    { icon: <FaUser /> },
-    { icon: <FaHeart /> },
+    { icon: <FaUser />, link: '/dashboard/products' },
+    // { icon: <FaHeart /> },
 ];
 
 
@@ -54,10 +54,10 @@ const Navbar: FC = () => {
                 // Laptop Navbar Code Here
                 <nav className={` ${bgColor}`}>
                     <div className="flex justify-between mx-auto items-center px-24">
-                        <div className="text-white font-bold text-xl flex items-center">
+                        <Link to={'/'} className="text-white font-bold text-xl flex items-center">
                             <img className='size-16' src={logo} alt="" />
                             <h1>Local<span className='text-rose-600'>Loop</span></h1>
-                        </div>
+                        </Link>
                         <ul className="flex gap-8 md:gap-16 items-center justify-center text-center cursor-pointer">
                             {navLinks.map((link, index) => (
                                 <li key={index} className="text-white text-sm"><NavLink className={({ isActive }) => isActive ? 'text-rose-600' : undefined} to={link.url}>{link.title}</NavLink> </li>
@@ -65,7 +65,7 @@ const Navbar: FC = () => {
                         </ul>
                         <ul className="flex text-white gap-6 items-center cursor-pointer">
                             {iconList.map((item, index) => (
-                                <div key={index}>{item.icon}</div>
+                                <Link to={item.link as string} key={index}>{item.icon}</Link>
                             ))}
                             <Link to={'/cart'}> <FaShoppingCart className='-mr-5' /></Link> <sup className='bg-rose-600 p-2 rounded-full text-white'>{cart?.length}</sup>
                         </ul>
@@ -75,15 +75,15 @@ const Navbar: FC = () => {
                 // Mobile Navbar Code Here
                 <nav className={` ${bgColor} ${showModal && 'h-screen'} px-4 z-[100]`}>
                     <div className="mx-auto flex justify-between items-center ">
-                        <div className="text-white font-bold text-xl flex items-center">
+                        <Link to={'/'} className="text-white font-bold text-xl flex items-center">
                             <img className='size-16' src={logo} alt="" />
                             <h1>Local<span className='text-rose-600'>Loop</span></h1>
-                        </div>
+                        </Link>
                         <div className="flex justify-end items-center gap-6 text-white cursor-pointer">
                             {iconList.map((item, index) => (
-                                <div key={index} onClick={index === iconList.length - 1 ? handleBarsIconClick : undefined}>{item.icon}</div>
+                                <Link to={item.link as string} key={index} onClick={index === iconList.length - 1 ? handleBarsIconClick : undefined}>{item.icon}</Link>
                             ))}
-                                <Link to={'/cart'}> <FaShoppingCart className='-mr-5' /></Link> <sup className='bg-rose-600 p-2 rounded-full text-white'>{cart?.length}</sup>
+                            <Link to={'/cart'}> <FaShoppingCart className='-mr-5' /></Link> <sup className='bg-rose-600 p-2 rounded-full text-white'>{cart?.length}</sup>
                             {!showModal && <FaBars onClick={handleBarsIconClick} className="text-white cursor-pointer z-10" />}
                         </div>
                     </div>
