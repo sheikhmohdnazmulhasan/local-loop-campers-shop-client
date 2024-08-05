@@ -59,7 +59,7 @@ const AllProducts = () => {
 
     return (
 
-        <div className="">
+        <div className="" data-aos="fade-left">
             {/* head */}
             <div className="flex w-full bg-gray-100 p-3 rounded-md font-semibold">
                 <div className="w-[40%] ">Images And Name </div>

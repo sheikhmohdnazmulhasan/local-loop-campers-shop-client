@@ -12,7 +12,8 @@ const AddProduct = () => {
     const navigate = useNavigate();
     const [createProduct] = useCreateProductMutation()
 
-    const handleFileChange = (event) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const handleFileChange = (event: { target: { files: any; }; }) => {
         const selectedFiles = event.target.files;
 
         if (selectedFiles && selectedFiles.length > 0) {
@@ -80,7 +81,7 @@ const AddProduct = () => {
 
 
     return (
-        <section className="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md ">
+        <section className="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md" data-aos="fade-left">
             <h2 className="text-lg font-semibold text-gray-700 capitalize mb-3">Add Product</h2>
 
             <form onSubmit={handleAddProduct}>
