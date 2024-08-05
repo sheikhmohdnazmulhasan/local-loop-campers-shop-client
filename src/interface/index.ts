@@ -88,6 +88,7 @@ export interface OrderDocument {
 
 export  interface EachOrderProps {
     item: OrderDocument;
+    setClickedData: (data: OrderDocument) => void;
 }
 
 export interface DataResponse {

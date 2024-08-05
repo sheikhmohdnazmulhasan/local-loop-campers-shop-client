@@ -4,7 +4,7 @@ import { EachOrderProps } from "../../interface";
 import Swal from "sweetalert2";
 import { useDeleteOrderMutation } from "../../redux/features/orders/orders.api";
 
-const EachOrder: FC<EachOrderProps> = ({ item }) => {
+const EachOrder: FC<EachOrderProps> = ({ item, setClickedData }) => {
     const [deleteProduct] = useDeleteOrderMutation()
 
     async function handleDeleteOrder() {
@@ -19,16 +19,17 @@ const EachOrder: FC<EachOrderProps> = ({ item }) => {
             confirmButtonText: "Yes, delete it!"
         }).then(async (result) => {
             if (result.isConfirmed) {
-                // Swal.fire({
-                //     title: "Deleted!",
-                //     text: "Your file has been deleted.",
-                //     icon: "success"
-                // });
-
+                
                 try {
-                    const res = await deleteProduct({ id: item._id });
+                    const res = await deleteProduct({ id: item._id }).unwrap()
 
-                    console.log(res);
+                    if (res.success) {
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "Order has been deleted.",
+                            icon: "success"
+                        });
+                    }
 
                 } catch (error) {
                     Swal.fire({
@@ -62,7 +63,7 @@ const EachOrder: FC<EachOrderProps> = ({ item }) => {
                 <p className="text-sm"> ${item?.orders?.reduce((acc, order) => acc + order.value, 0)}</p>
             </div>
             <div className="w-[20%] flex justify-start items-center gap-5">
-                <FaEye className="text-sky-700 cursor-pointer hover:scale-110 transition-all" size={20} />
+                <FaEye onClick={() => setClickedData(item)} className="text-sky-700 cursor-pointer hover:scale-110 transition-all" size={20} />
                 <FaTrash onClick={handleDeleteOrder} className="text-rose-600  cursor-pointer hover:scale-110 transition-all" size={16} />
             </div>
         </div>

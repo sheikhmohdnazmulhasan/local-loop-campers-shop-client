@@ -1,6 +1,6 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import logo from '../../../public/logo.png';
-import { FaPage4, FaPager, FaPlus } from 'react-icons/fa';
+import {  FaPager, FaPlus } from 'react-icons/fa';
 import Navbar from '../../components/Global/nav/Navbar';
 import { useState } from 'react';
 
