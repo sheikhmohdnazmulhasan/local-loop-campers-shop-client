@@ -49,3 +49,51 @@ export interface TUserOrders {
     user: TCheckoutForm;
     orders: TCart[];
 }
+
+
+// each order
+
+interface User {
+    email: string;
+    country: string;
+    city: string;
+    phone: string;
+    post_code: string;
+    name: string;
+    _id: string;
+}
+
+interface Order {
+    id: string;
+    quantity: number;
+    img: string;
+    value: number;
+    title: string;
+    _id: string;
+}
+
+interface Others {
+    track: number;
+    status: string;
+    _id: string;
+}
+
+export interface OrderDocument {
+    _id: string;
+    user: User;
+    orders: Order[];
+    others: Others;
+    __v: number;
+}
+
+export  interface EachOrderProps {
+    item: OrderDocument;
+}
+
+export interface DataResponse {
+    data: OrderDocument[];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    error: any;
+}
+
+

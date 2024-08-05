@@ -1,10 +1,14 @@
+import FetchErrorElmt from "../../error/FetchErrorElmt";
+import { OrderDocument } from "../../interface";
 import { useGetOrdersQuery } from "../../redux/features/orders/orders.api";
+import Spinner from "../../utils/Spinner";
 import EachOrder from "./EachOrder";
 
 const Orders = () => {
-    const { data, isError, isSuccess } = useGetOrdersQuery(undefined);
+    const { data, isError, isLoading } = useGetOrdersQuery(undefined);
 
-    console.log(data);
+    if (isLoading) return <Spinner />;
+    if (isError) return <FetchErrorElmt />;
 
     return (
         <div>
@@ -16,9 +20,11 @@ const Orders = () => {
                 <div className="w-[20%]">Price</div>
                 <div className="w-[20%]">Action</div>
             </div>
-
-            <EachOrder/>
             
+            {data?.data.map((item: OrderDocument, indx: number) => (
+                <EachOrder key={indx} item={item} />
+            ))}
+
         </div>
     );
 };
