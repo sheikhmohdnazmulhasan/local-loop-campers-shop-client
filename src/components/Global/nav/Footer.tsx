@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import logo from '../../../../public/logo.png';
+import { Link } from 'react-router-dom';
 
 const Footer: FC = () => {
 
@@ -15,7 +16,7 @@ const Footer: FC = () => {
                     <div className="flex mt-8 flex-col md:flex-row md:justify-between">
                         <p className="w-full md:w-2/3 text-gray-400">To ensure that all Wikipedia content is verifiable, anyone may question an uncited claim. If your work has been tagged</p>
                         <div className="w-44 pt-6 md:pt-0">
-                            <a className="bg-red-500 justify-center text-center rounded-lg shadow px-10 py-3 flex items-center">Contact US</a>
+                            <Link to={'/contact'} className="bg-red-500 justify-center text-center rounded-lg shadow px-10 py-3 flex items-center">Contact US</Link>
                         </div>
                     </div>
                     <div className="flex flex-col">
@@ -24,10 +25,10 @@ const Footer: FC = () => {
                                 <img className='size-16' src={logo} alt="" />
                                 <h1>Local<span className='text-rose-600'>Loop</span></h1>
                             </div>
-                            <a className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase">About</a>
-                            <a className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase">Services</a>
-                            <a className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase">Why us</a>
-                            <a className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase">Contact</a>
+                            <Link to={'/about'} className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase">About</Link>
+                            <Link to={'/products'} className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase">Services</Link>
+                            <Link to={'/dashboard'} className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase">Manage Products</Link>
+                            <Link to={'/contact'} className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase">Contact</Link>
                             <div className="flex flex-row space-x-8 items-center justify-between">
                                 <a>
                                     <svg width="6" height="12" viewBox="0 0 6 12" fill="none" xmlns="http://www.w3.org/2000/svg">

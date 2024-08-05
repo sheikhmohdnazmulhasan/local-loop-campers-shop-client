@@ -11,7 +11,7 @@ const Orders = () => {
     const [clickedData, setClickedData] = useState<OrderDocument | null>(null);
 
     const createdAt = clickedData?.createdAt ?? '';
-    const date = createdAt ? new Date(createdAt).toLocaleDateString(): 'Invalid Date'
+    const date = createdAt ? new Date(createdAt).toLocaleDateString() : 'Invalid Date'
 
     if (isLoading) return <Spinner />;
     if (isError) return <FetchErrorElmt />;
@@ -95,7 +95,7 @@ const Orders = () => {
                 <div className="w-[20%]">Action</div>
             </div>
 
-            {data?.data.map((item: OrderDocument, indx: number) => (
+            {data?.data.slice().reverse().map((item: OrderDocument, indx: number) => (
                 <EachOrder key={indx} setClickedData={setClickedData} item={item} />
             ))}
 
