@@ -11,7 +11,7 @@ import UnloadPrompt from "./utils/UnloadPrompt";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>
-      {/* <UnloadPrompt /> */}
+      <UnloadPrompt />
       <RouterProvider router={router} />
       <Toaster position="bottom-right" />
     </Provider>

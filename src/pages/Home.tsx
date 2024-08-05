@@ -27,7 +27,7 @@ const Home = () => {
             <Carousel />
 
             {/* hot products */}
-            <div className="px-4 md:px-8 lg:px-10 mx-auto">
+            <div data-aos="fade-up" className="px-4 md:px-8 lg:px-10 mx-auto">
                 <TitleGenerator title={'Hot'} colorTitle={'Products'} underTitle={'Choose Your Best'} />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -45,7 +45,7 @@ const Home = () => {
             </div>
 
             {/* categories */}
-            <div className="px-4 md:px-8 lg:px-10 mx-auto">
+            <div className="px-4 md:px-8 lg:px-10 mx-auto" data-aos="fade-up">
                 <TitleGenerator title="Top" colorTitle="Categories" underTitle="Go to Right Track" />
 
                 <div className="-mt-24">
@@ -54,7 +54,7 @@ const Home = () => {
             </div>
 
             {/* Featured products */}
-            <div className="px-4 md:px-8 lg:px-10 mx-auto">
+            <div className="px-4 md:px-8 lg:px-10 mx-auto" data-aos="fade-up">
                 <TitleGenerator title="Featured " colorTitle="Products" underTitle="Look Our Featured" />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -67,13 +67,12 @@ const Home = () => {
             </div>
 
             {/* unique section */}
-            <div className="px-4 md:px-8 mt-20 md:mt-32 lg:mt-40 lg:px-10 mx-auto">
+            <div className="px-4  md:px-8 mt-20 md:mt-32 lg:mt-40 lg:px-10 mx-auto">
                 <ShuffleHero />
             </div>
 
-
-
-            <div className="px-4 md:px-8 mt-20 md:mt-32 lg:mt-40 lg:px-10 mx-auto">
+            {/* testimonial */}
+            <div data-aos="fade-right" className="px-4 md:px-8 mt-20 md:mt-32 lg:mt-40 lg:px-10 mx-auto">
                 <TitleGenerator title="What People are " colorTitle="Saying." underTitle="Testimonials" />
 
                 <div className="md:-mt-32">

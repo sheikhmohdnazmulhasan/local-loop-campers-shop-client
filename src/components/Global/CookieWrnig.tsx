@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 const CookieWrnig = () => {
     const [showCookieWrnig, setShowCookieWrnig] = useState(false);
 
-
     useEffect(() => {
         setTimeout(() => setShowCookieWrnig(true), 3000);
     }, [])

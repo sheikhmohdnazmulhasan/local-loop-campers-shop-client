@@ -2,7 +2,7 @@ import Footer from "../components/Global/nav/Footer";
 
 const Contact = () => {
     return (
-        <div>
+        <div data-aos="fade-left">
             <section className="bg-white min-h-screen">
                 <div className="container grid gap-8 px-6 py-12 mx-auto lg:grid-cols-3">
                     <div>

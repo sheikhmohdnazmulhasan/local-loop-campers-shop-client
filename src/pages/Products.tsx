@@ -42,7 +42,7 @@ const Products = () => {
     )
 
     return (
-        <div className="h-screen">
+        <div data-aos="fade-left" className="h-screen">
 
             <div className=" p-4 md:p-10 lg:p-14">
 

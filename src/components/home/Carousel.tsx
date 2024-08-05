@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const Carousel = () => {
     const [currentSlider, setCurrentSlider] = useState(0);
@@ -57,13 +57,11 @@ export const Carousel = () => {
                                 Discover Rich products, Shop conveniently and connect with your community through our trusted platform.
                             </p>
 
-                            <div className="mt-8 flex flex-wrap gap-4 text-center !justify-start md:justify-center">
+                            <div data-aos='fade-right' className="mt-8 flex flex-wrap gap-4 text-center !justify-start md:justify-center">
 
                                 <Link to={'/products'} className="block w-full rounded bg-rose-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-rose-700 focus:outline-none focus:ring active:bg-rose-500 sm:w-auto">
                                     Browse Products
                                 </Link>
-
-
 
                                 <Link to={'/dashboard/products'} className="block w-full rounded bg-white px-12 py-3 text-sm font-medium text-rose-600 shadow hover:text-rose-700 focus:outline-none focus:ring active:text-rose-500 sm:w-auto">
                                     Manage Products And Orders
