@@ -25,6 +25,7 @@ const productApi = baseApi.injectEndpoints({
                 method: 'POST',
                 body: payload,
             }),
+            
             invalidatesTags: ['product']
         }),
 

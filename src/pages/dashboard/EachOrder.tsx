@@ -1,8 +1,46 @@
 import { FC } from "react";
 import { FaEye, FaTrash } from "react-icons/fa";
 import { EachOrderProps } from "../../interface";
+import Swal from "sweetalert2";
+import { useDeleteOrderMutation } from "../../redux/features/orders/orders.api";
 
 const EachOrder: FC<EachOrderProps> = ({ item }) => {
+    const [deleteProduct] = useDeleteOrderMutation()
+
+    async function handleDeleteOrder() {
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                // Swal.fire({
+                //     title: "Deleted!",
+                //     text: "Your file has been deleted.",
+                //     icon: "success"
+                // });
+
+                try {
+                    const res = await deleteProduct({ id: item._id });
+
+                    console.log(res);
+
+                } catch (error) {
+                    Swal.fire({
+                        title: 'Oops!',
+                        text: 'Something Wrong!',
+                        icon: 'error'
+                    })
+                }
+
+            }
+        });
+    }
 
     return (
         <div className="flex w-full p-3 mb-5 rounded-md font-semibold border-b">
@@ -25,7 +63,7 @@ const EachOrder: FC<EachOrderProps> = ({ item }) => {
             </div>
             <div className="w-[20%] flex justify-start items-center gap-5">
                 <FaEye className="text-sky-700 cursor-pointer hover:scale-110 transition-all" size={20} />
-                <FaTrash className="text-rose-600  cursor-pointer hover:scale-110 transition-all" size={16} />
+                <FaTrash onClick={handleDeleteOrder} className="text-rose-600  cursor-pointer hover:scale-110 transition-all" size={16} />
             </div>
         </div>
     );
