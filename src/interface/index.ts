@@ -100,3 +100,24 @@ export interface DataResponse {
 }
 
 
+interface Product {
+    _id: string;
+    title: string;
+    description: string;
+    category: string;
+    quantity: number;
+    price: number;
+    images: string[];
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+}
+
+export interface TProductApiResponse {
+    success: boolean;
+    statusCode: number;
+    message: string;
+    data: Product[];
+    error: string | null;
+}
+
