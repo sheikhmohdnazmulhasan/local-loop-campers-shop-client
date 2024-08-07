@@ -36,19 +36,6 @@ LocalLoop is designed to offer a wide range of camping products with a user-frie
 - **Version Control:** Git
 - **Deployment:** Vercel
 
-
-local-loop-client/
-│
-├── public/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   ├── redux/
-│   └── App.js
-├── .env
-└── index.js
-
-
 ## Installation
 
 ### Prerequisites
@@ -72,3 +59,18 @@ local-loop-client/
 ### Usage
 Navigate to http://localhost:5173 to view the application.
 Browse products, add to cart, and proceed to checkout.
+
+
+### Contributing
+Contributions are welcome! Please create an issue first to discuss what you would like to change.
+
+#### Fork the Project
+Create your Feature Branch (git checkout -b feature/AmazingFeature)
+Commit your Changes (git commit -m 'Add some AmazingFeature')
+Push to the Branch (git push origin feature/AmazingFeature)
+Open a Pull Request
+License
+Distributed under the MIT License. See LICENSE for more information.
+
+Contact
+Your Name - nazmulofficial@outlook.com
