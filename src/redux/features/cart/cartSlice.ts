@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-
 export interface ICart { id: string; title: string; img: string; quantity: number; payable: number }
 
 export type TCart = ICart[]

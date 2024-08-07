@@ -85,7 +85,7 @@ const Orders = () => {
     );
 
     return (
-        <div data-aos="fade-left">
+        <div >
 
             <div className="flex w-full bg-gray-100 p-3 mb-5 rounded-md font-semibold">
                 <div className="w-[30%] "> Item Title </div>
