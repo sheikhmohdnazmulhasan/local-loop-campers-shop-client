@@ -1,12 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
 import Footer from "../components/Global/nav/Footer";
 import PrdctCard from "../components/home/PrdctCard";
-import { useGetProductsQuery } from "../redux/features/products/product.api";
+
 import noItem from '../../public/no-product-8316266-6632286.webp';
-import Spinner from "../utils/Spinner";
-import FetchErrorElmt from "../error/FetchErrorElmt";
+
 import { TProduct, TProductApiResponse } from "../interface";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import axios from "axios";
 
 const Products = () => {
@@ -38,9 +37,9 @@ const Products = () => {
         setData(response.data);
     };
 
-    function handleSearch(e) {
+    function handleSearch(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        const value = e.target.search.value;
+        const value = (e.target as HTMLFormElement).search.value;
         setSearchTerm(value);
     }
 
