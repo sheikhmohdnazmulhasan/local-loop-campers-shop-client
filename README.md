@@ -1,9 +1,9 @@
-# Campers Shop Frontend
+# LocalLoop Frontend
 
 Welcome to the frontend of LocalLoop, an e-commerce platform dedicated to providing all the necessary and fun items for camping enthusiasts.
 
 ## Live URL
-[Visit Campers Shop](https://example.com)
+[Visit LocalLoop](https://example.com)
 
 ## Table of Contents
 - [About the Project](#about-the-project)
@@ -32,9 +32,22 @@ LocalLoop is designed to offer a wide range of camping products with a user-frie
 - **Accessibility:** Meets accessibility standards.
 
 ## Technologies Used
-- **Frontend:** React, Redux, HTML5, CSS3, JavaScript
+- **Frontend:** React, Redux, HTML5, CSS3, Tailwind, JavaScript
 - **Version Control:** Git
 - **Deployment:** Vercel
+
+
+local-loop-client/
+│
+├── public/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── redux/
+│   └── App.js
+├── .env
+└── index.js
+
 
 ## Installation
 
