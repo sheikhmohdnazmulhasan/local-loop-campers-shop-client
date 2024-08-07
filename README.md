@@ -3,7 +3,7 @@
 Welcome to the frontend of LocalLoop, an e-commerce platform dedicated to providing all the necessary and fun items for camping enthusiasts.
 
 ## Live URL
-[Visit LocalLoop](https://example.com)
+[Visit LocalLoop](https://lively-cranachan-9977fc.netlify.app/)
 
 ## Table of Contents
 - [About the Project](#about-the-project)
@@ -73,4 +73,4 @@ License
 Distributed under the MIT License. See LICENSE for more information.
 
 Contact
-Your Name - nazmulofficial@outlook.com
+nazmulofficial@outlook.com

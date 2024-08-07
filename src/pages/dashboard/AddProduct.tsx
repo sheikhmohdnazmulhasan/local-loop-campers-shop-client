@@ -64,7 +64,7 @@ const AddProduct = () => {
             }
 
             const dataForBackend = { title, description, quantity, category, price, images }
-            // const serverResponse = await axios.post(`http://localhost:5000/api/v1/products/new`, dataForBackend);
+            // const serverResponse = await axios.post(`https://local-loop-server.vercel.app/api/v1/products/new`, dataForBackend);
             const serverResponse = await createProduct(dataForBackend).unwrap();
 
             if (serverResponse.success) {

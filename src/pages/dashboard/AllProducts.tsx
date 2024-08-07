@@ -29,7 +29,7 @@ const AllProducts = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
 
-                const res = await axios.delete(`http://localhost:5000/api/v1/products?id=${_id}`);
+                const res = await axios.delete(`https://local-loop-server.vercel.app/api/v1/products?id=${_id}`);
 
                 if (res.data.success) {
                     Swal.fire({

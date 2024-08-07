@@ -24,7 +24,7 @@ const Products = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const fetchProducts = async (): Promise<void> => {
-        const response = await axios.get('http://localhost:5000/api/v1/products', {
+        const response = await axios.get('https://local-loop-server.vercel.app/api/v1/products', {
             params: {
                 searchTerm,
                 category,
